@@ -5,7 +5,6 @@ export function toSimplified<T extends string | number | undefined>(text: T): T 
   if (!text || typeof text !== 'string')
     return text
   // @ts-expect-error ignore
-  // eslint-disable-next-line no-control-regex
   return text.replace(/[^\x00-\xFF]/g, s => ((s in toSimplifiedMap) ? toSimplifiedMap[s] : s))
 }
 
@@ -17,6 +16,5 @@ export function toTraditional<T extends string | number | undefined>(text: T): T
   if (!toTraditionalMap)
     toTraditionalMap = reverseMap(toSimplifiedMap)
   // @ts-expect-error ignore
-  // eslint-disable-next-line no-control-regex
   return text.replace(/[^\x00-\xFF]/g, s => ((s in toTraditionalMap) ? toTraditionalMap[s] : s))
 }

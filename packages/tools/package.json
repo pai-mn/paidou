@@ -35,11 +35,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "stub": "unbuild --stub"
+    "build": "rm -rf dist && bun build src/index.ts --target=node --format=esm --define import.meta.vitest=false --outfile=dist/index.mjs && bun build src/index.ts --target=node --format=cjs --define import.meta.vitest=false --outfile=dist/index.cjs && tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "@types/pinyin": "^2.10.0",
-    "pinyin": "^2.11.2"
+    "pinyin": "4.0.0"
   }
 }

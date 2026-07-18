@@ -1,4 +1,4 @@
-import { parsePinyin } from '../pinyin'
+import { getPinyin, parsePinyin, pinyinToNumberStyle } from '../pinyin'
 import zhuyinMap from '../map/zhuyin.json'
 import toneSymbols from '../map/toneSymbols.json'
 import { reverseMap } from '../utils'
@@ -40,7 +40,6 @@ export function zhuyinToPinyin(zhuyin: string): ParsedPinyin {
 
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
-  const { getPinyin, pinyinToNumberStyle } = await import('../pinyin')
 
   describe('zhuyin', () => {
     it('toZhuyin', () => {
