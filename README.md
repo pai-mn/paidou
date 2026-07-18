@@ -13,7 +13,7 @@ A Chinese Hanzi variation of [Wordle](https://www.powerlanguage.co.uk/wordle/). 
 
 ## Development Setup
 
-- Install [Bun](https://bun.sh/)
+- Install [Bun](https://bun.sh/) >=1.3.13 (or Node.js >=22.12.0 when running the toolchain with Node.js)
 - Run `bun install`
 - Run `bun run dev` and visit `http://localhost:4444`
 
