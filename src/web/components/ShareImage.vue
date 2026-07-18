@@ -40,8 +40,8 @@ async function download() {
   <div v-if="isMobile" class="opacity-50 mb-4">
     {{ t('press-and-download-image') }}
   </div>
-  <img v-if="dataUrl" :src="dataUrl" class="w-80 min-h-10 border border-base rounded" />
-  <div v-else class="w-80 border border-base rounded p-4 animate-pulse">
+  <img v-if="dataUrl" :src="dataUrl" class="w-80 min-h-10 border border-base rounded-surface" />
+  <div v-else class="w-80 border border-base rounded-surface p-4 animate-pulse">
     {{ t('rendering') }}
   </div>
 

@@ -65,7 +65,7 @@ const emit = defineEmits<{
 @media (min-width: 768px) {
   .modal-panel {
     border: 1px solid var(--c-border);
-    box-shadow: 0 18px 48px var(--c-shadow);
+    box-shadow: var(--c-shadow-panel);
   }
 }
 </style>

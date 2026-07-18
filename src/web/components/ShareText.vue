@@ -72,7 +72,7 @@ onMounted(async () => {
     :rows="lines.length"
     :value="text"
     readonly
-    class="bg-subtle rounded p-5 select-text outline-none w-[22.5rem] text-center"
+    class="bg-subtle rounded-surface p-5 select-text outline-none w-[22.5rem] text-center"
   />
   <button v-if="share.isSupported" @click="shareSystem()" class="my-4 square-btn">
     <div class="i-[carbon--share]" />
