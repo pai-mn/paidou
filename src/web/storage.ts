@@ -3,8 +3,6 @@ import { preferZhuyin, t } from '#/web/i18n.ts'
 import { dayNo } from '#/web/state.ts'
 import type { InputMode, TriesMeta } from '#/web/logic/types.ts'
 
-export const legacyTries = useStorage<Record<number, string[]>>('handle-tries', {})
-
 export const history = useStorage<Record<number, TriesMeta>>('handle-tries-meta', {})
 export const initialized = useStorage('handle-initialized', false)
 
@@ -15,7 +13,6 @@ export const useNoHint = useStorage('handle-hard-mode', false)
 export const useNumberTone = useStorage('handle-number-tone', false)
 export const useCheckAssist = useStorage('handle-check-assist', false)
 export const useStrictMode = useStorage('handle-strict', false)
-export const acceptCollecting = useStorage('handle-accept-collecting', true)
 
 export const meta = computed<TriesMeta>({
   get() {
@@ -30,7 +27,7 @@ export const meta = computed<TriesMeta>({
 export const tries = computed<string[]>({
   get() {
     if (!meta.value.tries) meta.value.tries = []
-    return legacyTries.value[dayNo.value] || meta.value.tries
+    return meta.value.tries
   },
   set(v) {
     meta.value.tries = v
@@ -75,7 +72,6 @@ export const historyTriesCount = computed(() =>
     .reduce((a, b) => a + b, 0),
 )
 
-export const triesCount = computed(() => tries.value.length)
 export const averageDurations = computed(() => {
   const items = Object.values(history.value).filter((m) => m.passed && m.duration)
   if (!items.length) return 0
