@@ -1,11 +1,12 @@
-// @ts-expect-error missing types
-import _pinyinWeb from 'pinyin/lib/web-pinyin.js'
-import { parsePinyin } from './parse'
+import { pinyin } from 'pinyin-pro'
+import { parsePinyin } from '#/pinyin/parse.ts'
 
-export const getPinyinRaw = _pinyinWeb as typeof import('pinyin')
+export function getPinyinRaw(text: string) {
+  return pinyin(text, { toneType: 'num', type: 'array' })
+}
 
 export function getPinyin(text: string) {
-  return getPinyinRaw(text, { style: getPinyinRaw.STYLE_TONE2 }).map((i) => parsePinyin(i[0]))
+  return getPinyinRaw(text).map((i) => parsePinyin(i))
 }
 
 if (import.meta.vitest) {
@@ -16,7 +17,7 @@ if (import.meta.vitest) {
         getPinyin('輸入繁體字進行轉換')
           .map((i) => i.base + i.tone)
           .join(' '),
-      ).toMatchInlineSnapshot('"shu1 ru4 fan2 ti1 zi4 jin4 hang2 zhuan3 huan4"')
+      ).toMatchInlineSnapshot('"shu1 ru4 fan2 ti3 zi4 jin4 xing2 zhuan3 huan4"')
     })
   })
 }

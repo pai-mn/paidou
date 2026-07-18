@@ -15,7 +15,9 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["vite/client", "vitest/importMeta"],
     "paths": {
-      "#/*": ["./src/*"],
+      "#/*": ["./src/web/*"],
+      "#server/*": ["./src/server/*"],
+      "#shared/*": ["./src/shared/*"],
       "#tools/*": ["./tools/*"],
       "@hankit/tools": ["./packages/tools/src/index.ts"]
     }

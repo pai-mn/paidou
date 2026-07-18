@@ -1,8 +1,8 @@
-import type { ParsedPinyin } from '../types'
-import { parsePinyin } from '../pinyin'
-import { pinyinInitials } from '../pinyin/constants'
-import type { SpMode } from './constants'
-import { getShuangpinMaps } from './constants'
+import type { ParsedPinyin } from '#/types.ts'
+import { parsePinyin } from '#/pinyin/index.ts'
+import { pinyinInitials } from '#/pinyin/constants.ts'
+import type { SpMode } from '#/shuangpin/constants.ts'
+import { getShuangpinMaps } from '#/shuangpin/constants.ts'
 
 export function toShuangpin(pinyin: string | ParsedPinyin, spMode: SpMode) {
   pinyin = parsePinyin(pinyin)

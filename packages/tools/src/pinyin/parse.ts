@@ -1,5 +1,5 @@
-import type { ParsedPinyin } from '../types'
-import _phonetics from '../map/phonetics.json'
+import type { ParsedPinyin } from '#/types.ts'
+import _phonetics from '#/map/phonetics.json'
 
 const phonetics = _phonetics as Record<string, string>
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { toSimplified, toTraditional } from '../src/convert'
+import { toSimplified, toTraditional } from '#/convert.ts'
 
 describe('covert', () => {
   it('toSimplified', () => {

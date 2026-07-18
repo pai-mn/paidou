@@ -1,2 +1,2 @@
-export * from './convert'
-export * from './constants'
+export * from '#/zhuyin/convert.ts'
+export * from '#/zhuyin/constants.ts'

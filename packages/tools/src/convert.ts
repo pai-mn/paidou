@@ -1,5 +1,5 @@
-import toSimplifiedMap from './map/toSimplified.json'
-import { reverseMap } from './utils'
+import toSimplifiedMap from '#/map/toSimplified.json'
+import { reverseMap } from '#/utils.ts'
 
 export function toSimplified<T extends string | number | undefined>(text: T): T {
   if (!text || typeof text !== 'string') return text

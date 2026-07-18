@@ -1,6 +1,9 @@
 {
   "name": "@hankit/tools",
   "version": "0.0.1",
+  "imports": {
+    "#/*": "./src/*"
+  },
   "description": "Toolkits for Hanzi and Pinyin",
   "license": "MIT",
   "homepage": "https://github.com/pai-mn/paidou/tree/main/packages/tools#readme",
@@ -36,6 +39,6 @@
     "build": "rm -rf dist && bun build src/index.ts --target=node --format=esm --define import.meta.vitest=false --outfile=dist/index.mjs && bun build src/index.ts --target=node --format=cjs --define import.meta.vitest=false --outfile=dist/index.cjs && tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "pinyin": "4.0.0"
+    "pinyin-pro": "3.28.1"
   }
 }

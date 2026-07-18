@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
-import { getAnswerOfDay } from '#/answers/index.ts'
-import { answers } from '#/answers/list.ts'
-import { getPinyin } from '#/logic/index.ts'
+import { getAnswerOfDay } from '#server/game/index.ts'
+import { answers } from '#server/game/list.ts'
+import { getPinyin } from '#/logic/pinyin.ts'
 
 it('getPinyin', () => {
   expect(getPinyin('自怨自艾')).toMatchInlineSnapshot(`

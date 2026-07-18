@@ -1,8 +1,8 @@
-import { getPinyin, parsePinyin, pinyinToNumberStyle } from '../pinyin'
-import zhuyinMap from '../map/zhuyin.json'
-import toneSymbols from '../map/toneSymbols.json'
-import { reverseMap } from '../utils'
-import type { ParsedPinyin } from '../types'
+import { getPinyin, parsePinyin, pinyinToNumberStyle } from '#/pinyin/index.ts'
+import zhuyinMap from '#/map/zhuyin.json'
+import toneSymbols from '#/map/toneSymbols.json'
+import { reverseMap } from '#/utils.ts'
+import type { ParsedPinyin } from '#/types.ts'
 
 export function toZhuyin(pinyin: string | ParsedPinyin, renderTone = true) {
   pinyin = parsePinyin(pinyin)

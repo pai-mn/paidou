@@ -1,5 +1,5 @@
-import type { ParsedPinyin } from '../types'
-import { parsePinyin } from './parse'
+import type { ParsedPinyin } from '#/types.ts'
+import { parsePinyin } from '#/pinyin/parse.ts'
 
 export function getPhoneticPosition(pinyin: string | ParsedPinyin) {
   pinyin = parsePinyin(pinyin)

@@ -1,30 +1,30 @@
 import fs from 'fs'
 import c from 'ansis'
 import { toZhuyin } from '@hankit/tools'
-import { pinyin } from 'pinyin'
-import _polyphones from '#/data/polyphones.json'
+import { pinyin } from 'pinyin-pro'
+import _polyphones from '#shared/data/polyphones.json'
 import { normalizePinyin } from '#tools/utils.ts'
 import { getWordInfoFromZDict } from '#tools/zdict.ts'
 
 const polyphones = _polyphones as Record<string, string>
 const idioms = new Set(
   fs
-    .readFileSync('src/data/idioms.txt', 'utf8')
+    .readFileSync('src/shared/data/idioms.txt', 'utf8')
     .split('\n')
     .map((i) => i.trim())
     .filter(Boolean),
 )
 const newOnes = new Set(
   fs
-    .readFileSync('src/data/new.txt', 'utf8')
+    .readFileSync('src/shared/data/new.txt', 'utf8')
     .split('\n')
     .map((i) => i.trim())
     .filter(Boolean),
 )
 const unknown = new Set(
-  fs.existsSync('src/data/unknown.txt')
+  fs.existsSync('src/shared/data/unknown.txt')
     ? fs
-        .readFileSync('src/data/unknown.txt', 'utf8')
+        .readFileSync('src/shared/data/unknown.txt', 'utf8')
         .split('\n')
         .map((i) => i.trim())
         .filter(Boolean)
@@ -32,9 +32,7 @@ const unknown = new Set(
 )
 
 async function getPinyinWeb(word: string) {
-  return pinyin(word, { style: pinyin.STYLE_TONE2 })
-    .map((i: any) => i[0])
-    .join(' ')
+  return pinyin(word, { toneType: 'num', type: 'array' }).join(' ')
 }
 
 function validPinyin(word: string, pinyin: string) {
@@ -123,13 +121,13 @@ async function run() {
 function save() {
   console.log('\n---SAVING---')
   fs.writeFileSync(
-    'src/data/polyphones.json',
+    'src/shared/data/polyphones.json',
     JSON.stringify(Object.fromEntries(Object.entries(polyphones).sort((a, b) => a[0].localeCompare(b[0]))), null, 2),
     'utf8',
   )
-  fs.writeFileSync('src/data/idioms.txt', Array.from(new Set(idioms)).sort().join('\n'), 'utf8')
-  fs.writeFileSync('src/data/new.txt', Array.from(newOnes).join('\n'), 'utf8')
-  fs.writeFileSync('src/data/unknown.txt', Array.from(unknown).join('\n'), 'utf8')
+  fs.writeFileSync('src/shared/data/idioms.txt', Array.from(new Set(idioms)).sort().join('\n'), 'utf8')
+  fs.writeFileSync('src/shared/data/new.txt', Array.from(newOnes).join('\n'), 'utf8')
+  fs.writeFileSync('src/shared/data/unknown.txt', Array.from(unknown).join('\n'), 'utf8')
 }
 
 run()

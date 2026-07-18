@@ -10,8 +10,7 @@ import Unocss from 'unocss/vite'
 export default defineConfig({
   resolve: {
     alias: {
-      '#': path.resolve(__dirname, 'src'),
-      '@hankit/tools': path.resolve(__dirname, 'packages/tools/src/index.ts'),
+      '@hankit/tools': path.resolve(import.meta.dirname, 'packages/tools/src/index.ts'),
     },
   },
   define: {
@@ -23,13 +22,19 @@ export default defineConfig({
         Vue(),
         AutoImport({
           imports: ['vue', '@vueuse/core'],
-          dts: true,
+          dts: 'src/web/auto-imports.d.ts',
         }),
         Components({
-          dts: true,
+          dirs: ['src/web/components'],
+          dts: 'src/web/components.d.ts',
         }),
         Unocss(),
       ],
+  server: {
+    proxy: {
+      '/api': 'http://127.0.0.1:8787',
+    },
+  },
   test: {
     includeSource: ['packages/*/src/**/*.ts'],
   },
@@ -39,7 +44,6 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes('locale')) return 'locale'
-          if (id.includes('idioms.txt')) return 'idioms'
           if (id.includes('polyphones.json')) return 'polyphones'
           if (id.includes('node_modules') && !id.endsWith('.css')) return 'vendor'
         },
