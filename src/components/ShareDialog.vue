@@ -62,11 +62,9 @@ watch(showShareDialog, (v) => {
     </template>
     <template v-if="shareType === 'text'">
       <ShareText />
-      <SocialLinks />
     </template>
     <template v-if="shareType === 'image'">
       <ShareImage />
-      <SocialLinks />
     </template>
   </div>
 </template>

@@ -1,15 +1,13 @@
-![](./public/og.png)
+# 派兜 Paidou
 
-# 汉兜 Handle
-
-A Chinese Hanzi variation of [Wordle](https://www.powerlanguage.co.uk/wordle/). 汉字 Wordle.
+A Genshin Impact Chinese Hanzi variation of [Wordle](https://www.powerlanguage.co.uk/wordle/) - 派兜.
 
 [paidou.pai.mn](https://paidou.pai.mn)
 
 请勿剧透！PLEASE DO NOT SPOIL
 
 > **Note**
-> 汉兜的答案库至 2023 年 2 月 28 日为止将**不再更新**；后序的题目将从过往一年的题目中随机抽取。仓库以 MIT 协议开放，在注明原始仓库与作者的条件下，欢迎 Fork 与修改。感谢大家的对汉兜的支持与喜爱。
+> 派兜的答案库至 2023 年 2 月 28 日为止将**不再更新**；后序的题目将从过往一年的题目中随机抽取。仓库以 MIT 协议开放，欢迎 Fork 与修改。感谢大家对派兜的支持与喜爱。
 
 ## Development Setup
 
@@ -33,9 +31,8 @@ A Chinese Hanzi variation of [Wordle](https://www.powerlanguage.co.uk/wordle/). 
 - [Vue 3](https://v3.vuejs.org/)
 - [Vite](https://vitejs.dev/)
 - [VueUse](https://vueuse.org/)
-- [UnoCSS](https://github.com/antfu/unocss)
-- [Vitesse Lite](https://github.com/antfu/vitesse-lite)
+- [UnoCSS](https://unocss.dev/)
 
 ## License
 
-[MIT](./LICENSE) License © 2021-PRESENT [Anthony Fu](https://github.com/antfu)
+[MIT](./LICENSE) License

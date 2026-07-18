@@ -1,4 +1,6 @@
 {
+  "name": "paidou",
+  "description": "A Genshin Impact Chinese Hanzi variation of Wordle - 派兜",
   "type": "module",
   "private": true,
   "imports": {

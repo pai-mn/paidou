@@ -8,18 +8,9 @@ import { t } from '#/i18n.ts'
       <b>{{ t('other-variants') }}</b>
     </p>
     <ul flex="~ col gap-3" text-left w-50 m2 list-disc>
-      <li>
-        <a href="https://pinyincaichengyu.com" target="_blank">拼音猜成语</a> - by
-        <a href="https://twitter.com/_limboy">limboy</a>
-      </li>
-      <li>
-        <a href="https://cheeaun.github.io/chengyu-wordle/" target="_blank">成语 Wordle</a> - by
-        <a href="https://twitter.com/cheeaun">Chee Aun</a>
-      </li>
-      <li>
-        <a href="https://apps.apple.com/cn/app/id1606194420" target="_blank">猜文字 (iOS)</a> - by
-        <a href="https://twitter.com/OKJAKETO">Jinke Du</a>
-      </li>
+      <li><a href="https://pinyincaichengyu.com" target="_blank">拼音猜成语</a> - by limboy</li>
+      <li><a href="https://cheeaun.github.io/chengyu-wordle/" target="_blank">成语 Wordle</a> - by Chee Aun</li>
+      <li><a href="https://apps.apple.com/cn/app/id1606194420" target="_blank">猜文字 (iOS)</a> - by Jinke Du</li>
     </ul>
   </div>
 </template>
