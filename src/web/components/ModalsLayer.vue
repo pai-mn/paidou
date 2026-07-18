@@ -17,7 +17,7 @@ import { t } from '#/web/i18n.ts'
     <CheatSheet />
   </Modal>
   <Modal v-model="showSettings" :label="t('settings')">
-    <Settings my6 />
+    <Settings class="my-6" />
   </Modal>
   <Modal v-model="showHint" :label="t('hint')">
     <Hint />

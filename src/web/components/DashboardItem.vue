@@ -7,10 +7,10 @@ defineProps<{
 
 <template>
   <div>
-    <div text-3xl font>
+    <div class="text-3xl font-normal">
       {{ value }}
     </div>
-    <div op50 text-center>
+    <div class="opacity-50 text-center">
       {{ text }}
     </div>
   </div>

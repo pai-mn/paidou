@@ -18,67 +18,77 @@ defineProps<{
 </script>
 
 <template>
-  <div flex="~ col">
-    <div flex="~ center wrap">
-      <div square-btn m2>
-        <button :class="locale === 'hans' ? 'text-primary' : 'op80'" @click="locale = 'hans'">简体</button>
-        <div w-1px h-4 border="r base" />
-        <button :class="locale === 'hant' ? 'text-primary' : 'op80'" @click="locale = 'hant'">繁體</button>
+  <div class="flex flex-col">
+    <div class="flex items-center justify-center flex-wrap">
+      <div class="square-btn m-2">
+        <button :class="locale === 'hans' ? 'text-primary' : 'opacity-80'" @click="locale = 'hans'">简体</button>
+        <div class="w-px h-4 border-r border-base" />
+        <button :class="locale === 'hant' ? 'text-primary' : 'opacity-80'" @click="locale = 'hant'">繁體</button>
       </div>
-      <button square-btn m2 :class="colorblind ? 'text-primary' : 'op80'" @click="colorblind = !colorblind">
+      <button
+        :class="colorblind ? 'text-primary' : 'opacity-80'"
+        @click="colorblind = !colorblind"
+        class="square-btn m-2"
+      >
         {{ t('colorblind-mode') }}
         <div v-if="colorblind" square-btn-mark />
       </button>
     </div>
-    <div flex="~ center wrap">
-      <div square-btn m2>
-        <button :class="inputMode === 'py' ? 'text-primary' : 'op80'" @click="inputMode = 'py'">
+    <div class="flex items-center justify-center flex-wrap">
+      <div class="square-btn m-2">
+        <button :class="inputMode === 'py' ? 'text-primary' : 'opacity-80'" @click="inputMode = 'py'">
           {{ t('pinyin') }}
         </button>
-        <div w-1px h-4 border="r base" />
-        <button :class="inputMode === 'zy' ? 'text-primary' : 'op80'" @click="inputMode = 'zy'">
+        <div class="w-px h-4 border-r border-base" />
+        <button :class="inputMode === 'zy' ? 'text-primary' : 'opacity-80'" @click="inputMode = 'zy'">
           {{ t('zhuyin') }}
         </button>
-        <div w-1px h-4 border="r base" />
-        <button :class="inputMode === 'sp' ? 'text-primary' : 'op80'" @click="inputMode = 'sp'">
+        <div class="w-px h-4 border-r border-base" />
+        <button :class="inputMode === 'sp' ? 'text-primary' : 'opacity-80'" @click="inputMode = 'sp'">
           {{ t('shuangpin') }}
         </button>
       </div>
-      <div square-btn m2 :class="inputMode !== 'py' ? 'op50 pointer-events-none' : ''">
-        <button :class="!useNumberTone ? 'text-primary' : 'op80'" @click="useNumberToneRaw = false">
+      <div :class="inputMode !== 'py' ? 'opacity-50 pointer-events-none' : ''" class="square-btn m-2">
+        <button :class="!useNumberTone ? 'text-primary' : 'opacity-80'" @click="useNumberToneRaw = false">
           {{ t('tone-symbol') }}
         </button>
-        <div w-1px h-4 border="r base" />
-        <button :class="useNumberTone ? 'text-primary' : 'op80'" @click="useNumberToneRaw = true">
+        <div class="w-px h-4 border-r border-base" />
+        <button :class="useNumberTone ? 'text-primary' : 'opacity-80'" @click="useNumberToneRaw = true">
           {{ t('tone-number') }}
         </button>
       </div>
     </div>
-    <div v-if="inputMode === 'sp'" flex="~ center wrap">
-      <div square-btn m2>
-        <button :class="spMode === 'sougou' ? 'text-primary' : 'op80'" @click="spMode = 'sougou'">
+    <div v-if="inputMode === 'sp'" class="flex items-center justify-center flex-wrap">
+      <div class="square-btn m-2">
+        <button :class="spMode === 'sougou' ? 'text-primary' : 'opacity-80'" @click="spMode = 'sougou'">
           {{ t('shuangpin-sougou') }}
         </button>
-        <div w-1px h-4 border="r base" />
-        <button :class="spMode === 'xiaohe' ? 'text-primary' : 'op80'" @click="spMode = 'xiaohe'">
+        <div class="w-px h-4 border-r border-base" />
+        <button :class="spMode === 'xiaohe' ? 'text-primary' : 'opacity-80'" @click="spMode = 'xiaohe'">
           {{ t('shuangpin-xiaohe') }}
         </button>
       </div>
     </div>
-    <div v-if="!lite" flex="~ center wrap">
-      <button square-btn m2 :class="useNoHint ? 'text-primary' : 'op80'" @click="useNoHint = !useNoHint">
+    <div v-if="!lite" class="flex items-center justify-center flex-wrap">
+      <button :class="useNoHint ? 'text-primary' : 'opacity-80'" @click="useNoHint = !useNoHint" class="square-btn m-2">
         {{ t('hard-mode') }}
         <div v-if="useNoHint" square-btn-mark />
       </button>
-      <button square-btn m2 :class="useCheckAssist ? 'text-primary' : 'op80'" @click="useCheckAssist = !useCheckAssist">
+      <button
+        :class="useCheckAssist ? 'text-primary' : 'opacity-80'"
+        @click="useCheckAssist = !useCheckAssist"
+        class="square-btn m-2"
+      >
         {{ t('check-assist') }}
         <div v-if="useCheckAssist" square-btn-mark />
       </button>
       <button
-        square-btn
-        m2
-        :class="[useStrictMode ? 'text-primary' : 'op80', !!meta.tries?.length ? 'op50 pointer-events-none' : '']"
+        :class="[
+          useStrictMode ? 'text-primary' : 'opacity-80',
+          !!meta.tries?.length ? 'opacity-50 pointer-events-none' : '',
+        ]"
         @click="useStrictMode = !useStrictMode"
+        class="square-btn m-2"
       >
         {{ t('strict-mode') }}
         <div v-if="useStrictMode" square-btn-mark />

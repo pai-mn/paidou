@@ -11,7 +11,7 @@ const masked = computed(() => ({
 </script>
 
 <template>
-  <div p8 flex="~ col gap-4" items-center>
+  <div class="p-8 flex flex-col gap-4 items-center">
     <p>
       <b>{{ dayNoHanzi }}</b>
     </p>
@@ -19,7 +19,7 @@ const masked = computed(() => ({
       {{ t('hint-note') }} <b>{{ meta.hintLevel === 2 ? t('hanzi') : t('ziyin') }}</b>
     </div>
     <CharBlock :char="meta.hintLevel === 2 ? parsed : masked" />
-    <button v-if="meta.hintLevel !== 2" class="btn bg-mis" @click="meta.hintLevel = 2">
+    <button v-if="meta.hintLevel !== 2" @click="meta.hintLevel = 2" class="btn bg-mis">
       {{ t('more-hint') }}
     </button>
   </div>

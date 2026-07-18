@@ -11,19 +11,19 @@ const formatted = computed(() => {
 </script>
 
 <template>
-  <div pt12 pb16>
-    <div flex="~ col" items-center>
-      <ShareButton m4 />
+  <div class="pt-12 pb-16">
+    <div class="flex flex-col items-center">
+      <ShareButton class="m-4" />
       <ToggleMask :hint="true" />
     </div>
 
-    <div h-1px w-10 border="t base" mt4 mb6 mxa />
+    <div class="h-px w-10 border-t border-base mt-4 mb-6 mx-auto" />
 
-    <div flex="~ col center" relative>
-      <div op50 ws-nowrap>
+    <div class="flex flex-col items-center justify-center relative">
+      <div class="whitespace-nowrap opacity-50">
         {{ t('next-note') }}
       </div>
-      <div text-lg ws-nowrap style="font-variant-numeric: tabular-nums">
+      <div style="font-variant-numeric: tabular-nums" class="whitespace-nowrap text-lg">
         {{ formatted }}
       </div>
     </div>

@@ -1,10 +1,10 @@
 /// <reference types="vitest" />
 
 import { defineConfig } from 'vitest/config'
+import tailwindcss from '@tailwindcss/vite'
 import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import Unocss from 'unocss/vite'
 
 export default defineConfig({
   define: {
@@ -13,6 +13,7 @@ export default defineConfig({
   plugins: process.env.TEST
     ? []
     : [
+        tailwindcss(),
         Vue(),
         AutoImport({
           imports: ['vue', '@vueuse/core'],
@@ -22,7 +23,6 @@ export default defineConfig({
           dirs: ['src/web/components'],
           dts: 'src/web/components.d.ts',
         }),
-        Unocss(),
       ],
   server: {
     proxy: {

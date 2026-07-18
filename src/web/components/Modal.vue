@@ -17,8 +17,8 @@ const emit = defineEmits<{
       <DialogOverlay class="modal-mask bg-base fixed inset-0 z-40 opacity-50" />
       <DialogContent
         :aria-describedby="undefined"
-        class="modal-panel bg-base border-base fixed z-40 overflow-auto scrolls"
         @close-auto-focus="$event.preventDefault()"
+        class="modal-panel bg-base border-base fixed z-40 overflow-auto scrolls"
       >
         <VisuallyHidden>
           <DialogTitle>{{ label }}</DialogTitle>
@@ -37,7 +37,7 @@ const emit = defineEmits<{
   left: 50%;
   width: min(calc(100% - var(--modal-gutter) * 2), 46rem);
   max-height: calc(var(--vh, 1vh) * 100 - var(--modal-top) - var(--modal-gutter));
-  border-bottom: 1px solid rgba(156, 163, 175, 0.2);
+  border-bottom: 1px solid var(--c-border);
   transform: translateX(-50%);
 }
 
@@ -64,8 +64,8 @@ const emit = defineEmits<{
 
 @media (min-width: 768px) {
   .modal-panel {
-    border: 1px solid rgba(156, 163, 175, 0.2);
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--c-border);
+    box-shadow: 0 18px 48px var(--c-shadow);
   }
 }
 </style>

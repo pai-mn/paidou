@@ -4,9 +4,9 @@ import { t } from '#/web/i18n.ts'
 
 <template>
   <div>
-    <p text-center p-4>
+    <p class="text-center p-4">
       {{ t('no-quiz-today') }}
     </p>
-    <a btn href="/">{{ t('back-today') }}</a>
+    <a href="/" class="btn">{{ t('back-today') }}</a>
   </div>
 </template>

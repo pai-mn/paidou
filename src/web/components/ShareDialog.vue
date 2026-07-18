@@ -10,19 +10,19 @@ watch(showShareDialog, (v) => {
 </script>
 
 <template>
-  <div flex="~ col" p6 items-center relative>
-    <div absolute top-4 right-4 flex="~">
-      <button icon-btn @click="showShareDialog = false">
-        <div i-carbon-close />
+  <div class="flex flex-col p-6 items-center relative">
+    <div class="absolute top-4 right-4 flex">
+      <button @click="showShareDialog = false" class="icon-btn">
+        <div class="i-[carbon--close]" />
       </button>
     </div>
-    <div v-if="shareType" absolute top-4 left-4 flex="~">
-      <button icon-btn @click="shareType = null">
-        <div i-carbon-arrow-left />
+    <div v-if="shareType" class="absolute top-4 left-4 flex">
+      <button @click="shareType = null" class="icon-btn">
+        <div class="i-[carbon--arrow-left]" />
       </button>
     </div>
 
-    <p text-xl font-serif mb4>
+    <p class="text-xl font-serif mb-4">
       <b>{{
         shareType === 'text' ? t('share-with-text') : shareType === 'image' ? t('download-as-image') : t('share')
       }}</b>
@@ -31,31 +31,19 @@ watch(showShareDialog, (v) => {
       <div>
         {{ t('select-share-method') }}
       </div>
-      <div grid="~ cols-2 gap-2" my4>
+      <div class="grid grid-cols-2 gap-2 my-4">
         <button
-          flex="~ col center"
-          border="~ base"
-          p4
-          op80
-          class="hover:op100 hover:bg-gray:5"
-          w-30
-          h-30
           @click="shareType = 'text'"
+          class="flex flex-col items-center justify-center border border-base p-4 opacity-80 hover:opacity-100 hover:bg-subtle w-[7.5rem] h-[7.5rem]"
         >
-          <div i-ep-tickets text-10 op70 mb1 />
+          <div class="i-[ep--tickets] text-10 opacity-70 mb-1" />
           <div>{{ t('share-with-text') }}</div>
         </button>
         <button
-          flex="~ col center"
-          border="~ base"
-          p4
-          op80
-          class="hover:op100 hover:bg-gray:5"
-          w-30
-          h-30
           @click="shareType = 'image'"
+          class="flex flex-col items-center justify-center border border-base p-4 opacity-80 hover:opacity-100 hover:bg-subtle w-[7.5rem] h-[7.5rem]"
         >
-          <div i-ep-picture text-10 op70 mb1 />
+          <div class="i-[ep--picture] text-10 opacity-70 mb-1" />
           <div>{{ t('download-as-image') }}</div>
         </button>
       </div>

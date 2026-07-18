@@ -1,3 +1,50 @@
+@import 'tailwindcss';
+@plugin '@iconify/tailwind4' {
+  prefix: 'i';
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: var(--c-primary);
+  --color-primary-deep: var(--c-primary-deep);
+  --color-ok: var(--c-ok);
+  --color-mis: var(--c-mis);
+  --spacing-90: 22.5rem;
+  --spacing-86: 21.5rem;
+  --spacing-80: 20rem;
+  --spacing-50: 12.5rem;
+  --spacing-30: 7.5rem;
+  --spacing-100px: 100px;
+  --spacing-6px: 6px;
+  --spacing-1px: 1px;
+  --text-10: 2.5rem;
+}
+
+:root {
+  --c-bg: #ffffff;
+  --c-surface: #ffffff;
+  --c-text: #374151;
+  --c-text-muted: #6b7280;
+  --c-border: rgb(156 163 175 / 10%);
+  --c-overlay: rgb(238 238 238 / 50%);
+  --c-fill-subtle: rgb(107 114 128 / 5%);
+  --c-fill-active: rgb(107 114 128 / 8%);
+  --c-fill-hover: rgb(107 114 128 / 20%);
+  --c-fill-muted: rgb(156 163 175 / 8%);
+  --c-shadow: rgb(0 0 0 / 12%);
+  --c-disabled: #4b5563;
+  --c-primary: #0d828e;
+  --c-primary-deep: #08606a;
+  --c-ok: #1d9c9c;
+  --c-mis: #de7525;
+  --c-confetti-1: #5d8c7b;
+  --c-confetti-2: #f2d091;
+  --c-confetti-3: #f2a679;
+  --c-confetti-4: #d9695f;
+  --c-confetti-5: #8c4646;
+}
+
 html,
 body,
 #app {
@@ -6,17 +53,19 @@ body,
   padding: 0;
 }
 
-html.dark {
-  background: #121212;
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
 }
 
-:root {
-  --c-primary: #0d828e;
-  --c-primary-deep: #08606a;
-  --c-ok: #1d9c9c;
-  --c-mis: #de7525;
+html.dark {
+  background: var(--c-bg);
 }
 .dark {
+  --c-bg: #121212;
+  --c-surface: #121212;
+  --c-text: #d1d5db;
+  --c-overlay: rgb(34 34 34 / 50%);
   --c-ok: #0d8e8e;
 }
 
@@ -28,6 +77,99 @@ p {
   --c-ok: #5ba554;
   --c-mis: #ff46ff;
   --c-primary: #5ba554;
+}
+
+@utility bg-base {
+  background-color: var(--c-surface);
+}
+
+@utility bg-overlay {
+  background-color: var(--c-overlay);
+}
+
+@utility bg-header {
+  background-color: var(--c-fill-subtle);
+}
+
+@utility bg-active {
+  background-color: var(--c-fill-active);
+}
+
+@utility bg-hover {
+  background-color: var(--c-fill-hover);
+}
+
+@utility bg-subtle {
+  background-color: var(--c-fill-subtle);
+}
+
+@utility bg-muted {
+  background-color: var(--c-fill-muted);
+}
+
+@utility border-base {
+  border-color: var(--c-border);
+}
+
+@utility center {
+  align-items: center;
+  justify-content: center;
+}
+
+@utility scrolls {
+  scrollbar-width: thin;
+}
+
+@utility btn {
+  display: inline-block;
+  border-radius: 0.25rem;
+  background-color: var(--c-primary);
+  padding: 0.25rem 1rem;
+  color: white;
+  cursor: pointer;
+  opacity: 0.9;
+  letter-spacing: 0.025em;
+}
+
+@utility icon-btn {
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.75;
+  transition: opacity 200ms ease-in-out;
+}
+
+@utility square-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--c-border);
+  padding: 0.25rem 0.5rem;
+}
+
+@utility square-btn-mark {
+  position: absolute;
+  top: -0.2rem;
+  right: -0.2rem;
+  height: 0.5rem;
+  width: 0.5rem;
+  background-color: var(--c-primary);
+}
+
+.btn:hover,
+.icon-btn:hover {
+  opacity: 1;
+}
+
+.icon-btn:hover {
+  color: var(--c-primary);
+}
+
+.btn:disabled {
+  pointer-events: none;
+  cursor: default;
+  background-color: var(--c-disabled);
+  opacity: 0.5;
 }
 
 ul {

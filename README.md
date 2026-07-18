@@ -27,7 +27,7 @@ A Genshin Impact Chinese Hanzi variation of [Wordle](https://www.powerlanguage.c
 - [Vue 3](https://v3.vuejs.org/)
 - [Vite](https://vitejs.dev/)
 - [VueUse](https://vueuse.org/)
-- [UnoCSS](https://unocss.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
 ## License
 

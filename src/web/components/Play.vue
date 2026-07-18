@@ -84,12 +84,12 @@ watchEffect(() => {
 
 <template>
   <div>
-    <div class="play-board" flex="~ col" pt4 items-center>
+    <div class="play-board flex flex-col pt-4 items-center">
       <WordBlocks v-for="(w, i) of tries" :key="i" :word="w" :revealed="true" @click="focus()" />
 
       <template v-if="meta.answer">
-        <div my4>
-          <div font-serif p2>
+        <div class="my-4">
+          <div class="font-serif p-2">
             {{ t('correct-answer') }}
           </div>
           <WordBlocks :word="answer.word" />
@@ -98,20 +98,14 @@ watchEffect(() => {
 
       <WordBlocks v-if="!isFinished" :class="{ shake }" :word="input" :active="true" @click="focus()" />
 
-      <div mt-1 />
+      <div class="mt-1" />
 
       <Transition name="fade-out">
-        <div v-if="!isFinished" flex="~ col gap-2" items-center>
-          <div class="guess-input" relative border="2 base rounded-0">
+        <div v-if="!isFinished" class="flex flex-col gap-2 items-center">
+          <div class="guess-input relative border-2 border-base rounded-none">
             <input
               ref="el"
               v-model="inputValue"
-              bg-transparent
-              class="guess-input-field"
-              w-86
-              p3
-              outline-none
-              text-center
               type="text"
               autocomplete="false"
               :placeholder="t('input-placeholder')"
@@ -119,51 +113,50 @@ watchEffect(() => {
               :class="{ shake }"
               @input="handleInput"
               @keydown.enter="enter"
+              class="bg-transparent guess-input-field w-[21.5rem] p-3 outline-none text-center"
             />
             <div
-              absolute
-              top-0
-              left-0
-              right-0
-              bottom-0
-              flex="~ center"
-              bg-base
-              transition-all
-              duration-300
-              text-mis
-              pointer-events-none
               :aria-hidden="!showToast"
-              :class="showToast ? '' : 'op0 translate-y--1'"
+              :class="showToast ? '' : 'opacity-0 translate-y-[-0.25rem]'"
+              class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-base transition-all duration-300 text-mis pointer-events-none"
             >
-              <span tracking-1 pl1>
+              <span class="tracking-[1px] pl-1">
                 {{ t('invalid-idiom') }}
               </span>
             </div>
           </div>
           <button
-            mt3
-            btn
-            p="x6 y2"
             :disabled="input.length !== WORD_LENGTH || validation.isPending.value"
             @click="enter"
+            class="mt-3 btn px-6 py-2"
           >
             {{ t('ok-spaced') }}
           </button>
-          <div v-if="tries.length > 4 && !isFailed" op50>
+          <div v-if="tries.length > 4 && !isFailed" class="opacity-50">
             {{ t('tries-rest', TRIES_LIMIT - tries.length) }}
           </div>
-          <button v-if="isFailed" square-btn @click="showFailed = true">
-            <div i-mdi-emoticon-devil-outline />
+          <button v-if="isFailed" @click="showFailed = true" class="square-btn">
+            <div class="i-[mdi--emoticon-devil-outline]" />
             {{ t('view-answer') }}
           </button>
 
-          <div flex="~ center" mt4 :class="isFinished ? 'op0! pointer-events-none' : ''">
-            <button v-if="!useNoHint" mx2 icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
-              <div i-carbon-idea />
+          <div
+            :class="isFinished ? '!opacity-0 pointer-events-none' : ''"
+            class="flex items-center justify-center mt-4"
+          >
+            <button
+              v-if="!useNoHint"
+              @click="hint()"
+              class="mx-2 icon-btn text-[var(--c-text)] pb-2 gap-1 flex items-center justify-center"
+            >
+              <div class="i-[carbon--idea]" />
               {{ t('hint') }}
             </button>
-            <button mx2 icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">
-              <div i-carbon-grid />
+            <button
+              @click="sheet()"
+              class="mx-2 icon-btn text-[var(--c-text)] pb-2 gap-1 flex items-center justify-center"
+            >
+              <div class="i-[carbon--grid]" />
               {{ t('cheatsheet') }}
             </button>
           </div>
@@ -177,9 +170,9 @@ watchEffect(() => {
       </Transition>
 
       <template v-if="isDev">
-        <div h-200 />
-        <div op50 mb-2>测试用</div>
-        <button class="btn" @click="reset">重置</button>
+        <div class="h-[50rem]" />
+        <div class="opacity-50 mb-2">测试用</div>
+        <button @click="reset" class="btn">重置</button>
       </template>
     </div>
   </div>

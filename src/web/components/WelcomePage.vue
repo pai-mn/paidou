@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { showHelp, showVariants } from '#/web/modal-state.ts'
-import { isDark, useMask } from '#/web/state.ts'
+import { useMask } from '#/web/state.ts'
 import { initialized, inputMode } from '#/web/storage.ts'
 import { t } from '#/web/i18n.ts'
 
@@ -18,80 +18,81 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' })[inputMode.val
 </script>
 
 <template>
-  <div p="x5 y10" flex="~ col gap-2 y-center" relative>
-    <div absolute top-4 right-4 flex="~ gap-3">
-      <button v-if="!initialized" icon-btn @click="isDark = !isDark">
-        <div i-carbon-sun dark:i-carbon-moon />
-      </button>
-      <button v-else icon-btn @click="start()">
-        <div i-carbon-close />
+  <div class="px-5 py-10 flex flex-col gap-2 items-center relative">
+    <div class="absolute top-4 right-4 flex gap-3">
+      <button v-if="initialized" @click="start()" class="icon-btn">
+        <div class="i-[carbon--close]" />
       </button>
     </div>
 
-    <AppName h="2.5rem" />
-    <div mt--1 op50 text-sm>
+    <AppName class="h-[2.5rem]" />
+    <div class="mt-[-0.25rem] opacity-50 text-sm">
       {{ t('description') }}
     </div>
 
-    <div h-1px w-10 border="b base" m4 />
+    <div class="h-px w-10 border-b border-base m-4" />
 
-    <p text-xl font-serif mb4>
+    <p class="text-xl font-serif mb-4">
       <b>{{ t('rule') }}</b>
     </p>
 
     <p>
-      {{ t('intro-1') }} <b text-ok>{{ t('intro-2') }}</b
+      {{ t('intro-1') }} <b class="text-ok">{{ t('intro-2') }}</b
       >。
     </p>
     <p>{{ t('intro-3') }}</p>
-    <div h-1px w-10 border="b base" m4 />
+    <div class="h-px w-10 border-b border-base m-4" />
 
-    <WordBlocks my2 :word="t('example-1')" :revealed="true" answer=" 门  " />
+    <WordBlocks :word="t('example-1')" :revealed="true" answer=" 门  " class="my-2" />
     <p>
-      {{ t('intro-4') }} <b text-ok>{{ t('intro-5') }}</b> {{ t('intro-6') }}
+      {{ t('intro-4') }} <b class="text-ok">{{ t('intro-5') }}</b> {{ t('intro-6') }}
     </p>
 
-    <WordBlocks my2 :word="t('example-2')" :revealed="true" answer="一一一水" />
+    <WordBlocks :word="t('example-2')" :revealed="true" answer="一一一水" class="my-2" />
     <p>
-      {{ t('intro-7') }} <b text-mis>{{ t('intro-8') }}</b> {{ t('intro-9') }}
+      {{ t('intro-7') }} <b class="text-mis">{{ t('intro-8') }}</b> {{ t('intro-9') }}
     </p>
 
-    <WordBlocks my2 :word="t('example-3')" :revealed="true" answer="桥它拖 " />
-    <p max-w-130>
+    <WordBlocks :word="t('example-3')" :revealed="true" answer="桥它拖 " class="my-2" />
+    <p class="max-w-[32.5rem]">
       {{ t('intro-10') }} <b>{{ t('intro-11') }}</b> {{ t('intro-12') }} {{ t('intro-13') }}
-      <b op50>{{ t('intro-14') }}</b> {{ t('intro-15') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-16') }}
-      {{ t('intro-17') }} <b text-mis>{{ final }}</b> {{ t('intro-19') }}
+      <b class="opacity-50">{{ t('intro-14') }}</b> {{ t('intro-15') }} <b class="opacity-50">{{ t('intro-14') }}</b>
+      {{ t('intro-16') }} {{ t('intro-17') }} <b class="text-mis">{{ final }}</b> {{ t('intro-19') }}
     </p>
 
-    <WordBlocks my2 :word="t('example-4')" :revealed="true" answer="武运昌隆" />
+    <WordBlocks :word="t('example-4')" :revealed="true" answer="武运昌隆" class="my-2" />
     <p>{{ t('intro-20') }}</p>
 
-    <div h-1px w-10 border="b base" m4 />
+    <div class="h-px w-10 border-b border-base m-4" />
 
-    <button btn p="x4 y2" @click="start()">
-      <span tracking-1 pl1>{{ t('start') }}</span>
+    <button @click="start()" class="btn px-4 py-2">
+      <span class="tracking-[1px] pl-1">{{ t('start') }}</span>
     </button>
-    <div op50>
+    <div class="opacity-50">
       {{ t('update-tip') }}
     </div>
 
-    <div h-1px w-10 border="b base" m4 />
+    <div class="h-px w-10 border-b border-base m-4" />
 
     <Settings :lite="true" />
 
-    <div h-1px w-10 border="b base" m4 />
+    <div class="h-px w-10 border-b border-base m-4" />
 
-    <div h-1px w-10 border="b base" m4 />
-    <button text-primary op80 hover:op100 @click="variantButton()">
+    <div class="h-px w-10 border-b border-base m-4" />
+    <button @click="variantButton()" class="text-primary opacity-80 hover:opacity-100">
       {{ t('other-variants') }}
     </button>
     <div>
-      <span op40>inspired by </span
-      ><a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" op50 hover:op80>Wordle</a>
-      <span op40>, made by Inès</span>
+      <span class="opacity-40">inspired by </span
+      ><a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" class="opacity-50 hover:opacity-80">Wordle</a>
+      <span class="opacity-40">, made by Inès</span>
     </div>
-    <a href="https://github.com/pai-mn/paidou" target="_blank" flex="~ center gap-1" op50 hover:op80>
-      <div i-carbon-logo-github />
+    <a
+      href="https://github.com/pai-mn/paidou"
+      target="_blank"
+      class="flex items-center justify-center gap-1 opacity-50 hover:opacity-80"
+    >
+      <div class="i-[carbon--logo-github]" />
       Source Code
     </a>
   </div>

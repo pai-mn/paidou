@@ -25,15 +25,15 @@ const parsed = computed(() => {
 })
 
 function getColor(result?: MatchType, isChar = false) {
-  const pre = useMask.value ? `bg-current ${isChar ? ' !op70' : '!op40'} border border-current` : ''
+  const pre = useMask.value ? `bg-current ${isChar ? ' !opacity-70' : '!opacity-40'} border border-current` : ''
 
   if (!result || exact.value) return pre
 
   const colors = {
     exact: 'text-ok',
     misplaced: 'text-mis',
-    none: isChar ? 'op80' : 'op35',
-    deleted: inputMode.value === 'zy' ? 'op30' : 'line-through op30',
+    none: isChar ? 'opacity-80' : 'opacity-35',
+    deleted: inputMode.value === 'zy' ? 'opacity-30' : 'line-through opacity-30',
   }
   return `${pre} ${colors[result]}`
 }
@@ -41,7 +41,7 @@ function getColor(result?: MatchType, isChar = false) {
 const blockColor = computed(() => {
   if (!props.answer) return 'border-base'
   if (exact.value) return 'border-transparent bg-ok text-white'
-  return 'border-transparent bg-gray-400/8'
+  return 'border-transparent bg-muted'
 })
 
 const toneCharLocation = computed(() => {
@@ -74,25 +74,21 @@ const partTwo = computed(() => {
 </script>
 
 <template>
-  <div class="char-block" h-20 w-20 border-2 flex="~ center" relative leading-1em font-serif :class="blockColor">
+  <div
+    :class="blockColor"
+    class="char-block h-20 w-20 border-2 flex items-center justify-center relative leading-[1em] font-serif"
+  >
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
       <template v-if="inputMode === 'zy'">
         <div
-          absolute
-          text-3xl
-          leading-1em
-          flex
-          items-center
-          text-center
-          top-0
-          bottom-0
           :class="[getColor(parsed?.char, true), useMask ? 'left-3' : 'left-4']"
+          class="absolute text-3xl leading-[1em] flex items-center text-center top-0 bottom-0"
         >
           {{ char.char }}
         </div>
-        <div absolute flex items-center text-center top-0 bottom-0 right="2.5" w="5">
-          <div flex="~ center" text-xs style="writing-mode: vertical-rl">
+        <div class="absolute flex items-center text-center top-0 bottom-0 right-[2.5rem] w-5">
+          <div style="writing-mode: vertical-rl" class="flex items-center justify-center text-xs">
             <span v-if="char._1" :class="getColor(parsed?._1)">
               {{ char._1 }}
             </span>
@@ -103,58 +99,52 @@ const partTwo = computed(() => {
               {{ char._3 }}
             </span>
           </div>
-          <ToneSymbol :tone="char.tone" :class="getColor(parsed?.tone)" mt--1 min-w-6px />
+          <ToneSymbol :tone="char.tone" :class="getColor(parsed?.tone)" class="mt-[-0.25rem] min-w-[6px]" />
         </div>
       </template>
 
       <!-- Pinyin or Shuangpin -->
       <template v-else>
-        <div absolute text-3xl leading-1em :class="[getColor(parsed?.char, true), useMask ? 'top-8.5' : 'top-8']">
+        <div
+          :class="[getColor(parsed?.char, true), useMask ? 'top-[2.125rem]' : 'top-8']"
+          class="absolute text-3xl leading-[1em]"
+        >
           {{ char.char }}
         </div>
         <div
-          absolute
-          font-mono
-          text-center
-          left-0
-          right-0
-          font-100
-          flex
-          flex-col
-          items-center
-          :class="[useMask ? 'top-14px' : 'top-11px']"
+          :class="[useMask ? 'top-[14px]' : 'top-[11px]']"
+          class="absolute font-mono text-center left-0 right-0 font-normal flex flex-col items-center"
         >
-          <div relative ma items-start flex="~ x-center">
-            <div v-if="char._1" :class="getColor(parsed?._1)" mx-1px>
+          <div class="relative m-auto items-start flex justify-center">
+            <div v-if="char._1" :class="getColor(parsed?._1)" class="mx-1px">
               {{ char._1 }}
             </div>
-            <div v-if="partTwo" mx-1px flex>
-              <div v-for="(w, idx) of partTwo" :key="idx" relative>
+            <div v-if="partTwo" class="mx-1px flex">
+              <div v-for="(w, idx) of partTwo" :key="idx" class="relative">
                 <div :class="getColor(parsed?._2)">
                   {{ inputMode === 'sp' ? w : w.replace('v', 'u') }}
                 </div>
                 <VDots
                   v-if="!useMask && idx === vLocation && inputMode === 'py'"
                   :class="getColor(parsed?._2)"
-                  absolute
-                  w="87%"
-                  left="8%"
-                  bottom="0.76rem"
+                  class="absolute w-[87%] left-[8%] bottom-[0.76rem]"
                 />
                 <ToneSymbol
                   v-if="!useNumberTone && idx === toneCharLocation"
                   :tone="char.tone"
                   :class="getColor(parsed?.tone)"
-                  absolute
-                  w="86%"
-                  left="8%"
                   :style="{
                     bottom: useMask ? '1.25rem' : w === 'v' ? '0.85rem' : '0.78rem',
                   }"
+                  class="absolute w-[86%] left-[8%]"
                 />
               </div>
             </div>
-            <div v-if="useNumberTone" :class="getColor(parsed?.tone)" text-xs leading-1em mr--3 mt--1 ml-1px>
+            <div
+              v-if="useNumberTone"
+              :class="getColor(parsed?.tone)"
+              class="text-xs leading-[1em] mr-[-0.75rem] mt-[-0.25rem] ml-1px"
+            >
               {{ char.tone }}
             </div>
           </div>

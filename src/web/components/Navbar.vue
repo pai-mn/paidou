@@ -14,25 +14,27 @@ function openHelp() {
 </script>
 
 <template>
-  <nav border="b base" relative>
-    <div class="app-nav-title" absolute font-serif text-2xl left-0 right-0 top-0 bottom-0 z--1 tracking-2 flex>
-      <AppName ma />
+  <nav class="border-b border-base relative">
+    <div
+      class="app-nav-title absolute font-serif text-2xl left-0 right-0 top-0 bottom-0 z-[-0.25rem] tracking-[2px] flex"
+    >
+      <AppName class="m-auto" />
     </div>
-    <div class="app-nav-actions" flex items-center justify-between md:max-w-md ma py4 px2>
-      <div flex items-center>
-        <button icon-btn mx2 @click="openHelp()">
-          <div i-carbon-help />
+    <div class="app-nav-actions flex items-center justify-between md:max-w-md m-auto py-4 px-2">
+      <div class="flex items-center">
+        <button @click="openHelp()" class="icon-btn mx-2">
+          <div class="i-[carbon--help]" />
         </button>
-        <button v-if="gamesCount" icon-btn mx2 @click="toggleDashboard()">
-          <div i-carbon-catalog />
+        <button v-if="gamesCount" @click="toggleDashboard()" class="icon-btn mx-2">
+          <div class="i-[carbon--catalog]" />
         </button>
       </div>
-      <div flex items-center>
-        <button icon-btn mx2 @click="toggleSettings()">
-          <div i-carbon-settings />
+      <div class="flex items-center">
+        <button @click="toggleSettings()" class="icon-btn mx-2">
+          <div class="i-[carbon--settings]" />
         </button>
-        <button icon-btn mx2 @click="toggleDark()">
-          <div i-carbon-sun dark:i-carbon-moon />
+        <button @click="toggleDark()" class="icon-btn mx-2">
+          <div class="i-[carbon--sun] dark:i-[carbon--moon]" />
         </button>
       </div>
     </div>

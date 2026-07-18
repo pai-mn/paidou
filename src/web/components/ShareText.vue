@@ -63,25 +63,19 @@ onMounted(async () => {
 </script>
 
 <template>
-  <p text-center mb4>
+  <p class="text-center mb-4">
     {{ copied ? t('share-copied') : t('share-not-copied') }}
   </p>
   <textarea
-    bg-gray-500:5
-    rounded
-    p5
-    select-text
     resize-none
-    outline-none
-    w-90
-    text-center
     style="line-height: 19px; letter-spacing: 1px"
     :rows="lines.length"
     :value="text"
     readonly
+    class="bg-subtle rounded p-5 select-text outline-none w-[22.5rem] text-center"
   />
-  <button v-if="share.isSupported" my4 square-btn @click="shareSystem()">
-    <div i-carbon-share />
+  <button v-if="share.isSupported" @click="shareSystem()" class="my-4 square-btn">
+    <div class="i-[carbon--share]" />
     {{ t('share-with-system-api') }}
   </button>
 </template>

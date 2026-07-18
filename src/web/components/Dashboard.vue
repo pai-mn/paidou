@@ -67,40 +67,35 @@ const validWordsRate = computed(() => {
 </script>
 
 <template>
-  <div p5 flex="~ col center" relative>
-    <div absolute top-4 right-4 flex="~ gap-3">
-      <button icon-btn @click="close">
-        <div i-carbon-close />
+  <div class="p-5 flex flex-col items-center justify-center relative">
+    <div class="absolute top-4 right-4 flex gap-3">
+      <button @click="close" class="icon-btn">
+        <div class="i-[carbon--close]" />
       </button>
     </div>
 
-    <p text-xl font-serif mb2>
+    <p class="text-xl font-serif mb-2">
       <b>{{ t('dashboard') }}</b>
     </p>
-    <div v-if="passedTries.length >= 3 && triesMax" w-full max-w-100 bg-gray:5 p4 my4>
-      <p text-lg font-serif mb2 mt--1 text-center tracking-widest>
+    <div v-if="passedTries.length >= 3 && triesMax" class="w-full max-w-[25rem] bg-subtle p-4 my-4">
+      <p class="text-lg font-serif mb-2 mt-[-0.25rem] text-center tracking-widest">
         {{ t('guess-dist') }}
       </p>
-      <div v-for="i of triesMax" :key="i" flex="~" items-center gap-2>
-        <div w-4 flex-none text-right op50>
+      <div v-for="i of triesMax" :key="i" class="flex items-center gap-2">
+        <div class="w-4 flex-none text-right opacity-50">
           {{ i === 10 ? '10+' : i }}
         </div>
         <div
-          bg-primary
-          h-5
-          text-white
-          text-right
-          flex
-          justify-end
           :style="{ width: triesMap.get(i) ? `${(triesMap.get(i)! / tiresMaxCount) * 100}%` : '1%' }"
+          class="bg-primary h-5 text-white text-right flex justify-end"
         >
-          <div text-sm mya mr1>
+          <div class="text-sm my-auto mr-1">
             {{ triesMap.get(i) }}
           </div>
         </div>
       </div>
     </div>
-    <div flex="~ wrap gap-4" justify-center min-w-100px py2>
+    <div class="flex flex-wrap gap-4 justify-center min-w-[100px] py-2">
       <DashboardItem :value="gamesCount" :text="t('games-count')" />
       <DashboardItem :value="passedCount" :text="t('win-count')" />
       <DashboardItem :value="noHintPassedCount" :text="t('win-no-hint-count')" />
@@ -109,11 +104,11 @@ const validWordsRate = computed(() => {
         :text="t('win-rate')"
       />
     </div>
-    <div flex="~ wrap gap-4" justify-center min-w-100px py2>
+    <div class="flex flex-wrap gap-4 justify-center min-w-[100px] py-2">
       <DashboardItem :value="allWords.length" :text="t('used-words')" />
       <DashboardItem :value="validation.isPending.value ? '-' : `${validWordsRate}%`" :text="t('valid-words-rate')" />
     </div>
-    <div flex="~ wrap gap-4" justify-center min-w-100px py2>
+    <div class="flex flex-wrap gap-4 justify-center min-w-[100px] py-2">
       <DashboardItem
         :value="gamesCount ? (historyTriesCount / gamesCount).toFixed(1) : '-'"
         :text="t('average-tries-count')"

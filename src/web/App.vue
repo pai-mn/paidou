@@ -14,13 +14,13 @@ watchEffect(() => {
 </script>
 
 <template>
-  <main font-sans text="center gray-700 dark:gray-300" select-none :class="{ colorblind }">
+  <main :class="{ colorblind }" class="font-sans text-center text-[var(--c-text)] select-none">
     <Navbar />
-    <div class="game-stage" p="4">
+    <div class="game-stage p-4">
       <div v-if="isAnswerLoading" />
-      <div v-else-if="isAnswerError" flex="~ col gap-4" items-center py12>
+      <div v-else-if="isAnswerError" class="flex flex-col gap-4 items-center py-12">
         <div>{{ t('game-load-error') }}</div>
-        <button btn @click="gameQuery.refetch()">{{ t('retry') }}</button>
+        <button @click="gameQuery.refetch()" class="btn">{{ t('retry') }}</button>
       </div>
       <NoQuizToday v-else-if="!answer.word" />
       <Play v-else :key="dayNo" />

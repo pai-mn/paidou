@@ -34,31 +34,28 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="word-row" flex>
+  <div class="word-row flex">
     <div
       v-for="(c, i) in parseWord(word.padEnd(WORD_LENGTH, ' '), answer || todayAnswer.word)"
       :key="i"
-      w-20
-      h-20
-      m1
-      class="tile"
       :class="[flip ? 'revealed' : '']"
+      class="w-20 h-20 m-1 tile"
     >
       <template v-if="animate">
         <CharBlock
-          class="front"
           :char="c"
           :active="active"
           :style="{ transitionDelay: `${i * (300 + Math.random() * 50)}ms` }"
+          class="front"
         />
         <CharBlock
-          class="back"
           :char="c"
           :answer="result[i]"
           :style="{
             transitionDelay: `${i * (300 + Math.random() * 50)}ms`,
             animationDelay: `${i * (100 + Math.random() * 50)}ms`,
           }"
+          class="back"
         />
       </template>
       <template v-else>
