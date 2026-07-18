@@ -17,3 +17,10 @@ export function seedShuffle<T>(array: T[], seed: string): T[] {
 
   return array
 }
+
+export function avoidBoundaryRepeat<T extends [string, ...unknown[]]>(answers: T[], previousAnswer?: string) {
+  if (answers[0]?.[0] !== previousAnswer) return
+
+  const swapIndex = answers.findIndex(([word]) => word !== previousAnswer)
+  if (swapIndex > 0) [answers[0], answers[swapIndex]] = [answers[swapIndex], answers[0]]
+}

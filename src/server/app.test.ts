@@ -33,8 +33,8 @@ describe('game API', () => {
     expect(response.status).toBe(404)
   })
 
-  it('validates idioms in a structured batch response', async () => {
-    const response = await app.request('/api/idioms/validate', {
+  it('returns pronunciations in a structured batch response', async () => {
+    const response = await app.request('/api/pronunciations', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ words: ['云淡风轻', '云淡风淡'] }),
@@ -47,21 +47,20 @@ describe('game API', () => {
           云淡风淡: expect.any(Array),
           云淡风轻: expect.any(Array),
         },
-        validity: { 云淡风轻: true, 云淡风淡: false },
       },
     })
   })
 
-  it('rejects malformed idiom validation requests', async () => {
-    const response = await app.request('/api/idioms/validate', {
+  it('rejects malformed pronunciation requests', async () => {
+    const response = await app.request('/api/pronunciations', {
       method: 'POST',
       body: JSON.stringify({ words: '云淡风轻' }),
     })
     expect(response.status).toBe(400)
   })
 
-  it('rejects non-idiom input without looking it up', async () => {
-    const response = await app.request('/api/idioms/validate', {
+  it('returns pronunciations for arbitrary input', async () => {
+    const response = await app.request('/api/pronunciations', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ words: ['云淡风轻云', 'test'] }),
@@ -73,7 +72,6 @@ describe('game API', () => {
           云淡风轻云: expect.any(Array),
           test: expect.any(Array),
         },
-        validity: { 云淡风轻云: false, test: false },
       },
     })
   })

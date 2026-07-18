@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useQuery } from '@tanstack/vue-query'
-import { validateIdioms } from '#/web/api/idioms.ts'
 import DashboardItem from '#/web/components/DashboardItem.vue'
 import { t } from '#/web/i18n.ts'
 import { showDashboard } from '#/web/modal-state.ts'
@@ -53,17 +51,6 @@ const allWords = computed(() =>
     ),
   ),
 )
-const validation = useQuery({
-  queryKey: computed(() => ['idiom-validity', ...allWords.value] as const),
-  queryFn: ({ signal }) => validateIdioms(allWords.value, signal),
-  enabled: computed(() => allWords.value.length > 0),
-})
-const validWordsRate = computed(() => {
-  if (!allWords.value.length) return 0
-  const validity = validation.data.value?.validity
-  if (!validity) return 0
-  return Math.round((allWords.value.filter((word) => validity[word]).length / allWords.value.length) * 100)
-})
 </script>
 
 <template>
@@ -106,7 +93,6 @@ const validWordsRate = computed(() => {
     </div>
     <div class="flex flex-wrap gap-4 justify-center min-w-[100px] py-2">
       <DashboardItem :value="allWords.length" :text="t('used-words')" />
-      <DashboardItem :value="validation.isPending.value ? '-' : `${validWordsRate}%`" :text="t('valid-words-rate')" />
     </div>
     <div class="flex flex-wrap gap-4 justify-center min-w-[100px] py-2">
       <DashboardItem

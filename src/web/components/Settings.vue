@@ -2,12 +2,10 @@
 import {
   colorblind,
   inputMode,
-  meta,
   spMode,
   useCheckAssist,
   useNoHint,
   useNumberTone as useNumberToneRaw,
-  useStrictMode,
 } from '#/web/storage.ts'
 import { useNumberTone } from '#/web/state.ts'
 import { locale, t } from '#/web/i18n.ts'
@@ -81,17 +79,6 @@ defineProps<{
       >
         {{ t('check-assist') }}
         <div v-if="useCheckAssist" square-btn-mark />
-      </button>
-      <button
-        :class="[
-          useStrictMode ? 'text-primary' : 'opacity-80',
-          !!meta.tries?.length ? 'opacity-50 pointer-events-none' : '',
-        ]"
-        @click="useStrictMode = !useStrictMode"
-        class="square-btn m-2"
-      >
-        {{ t('strict-mode') }}
-        <div v-if="useStrictMode" square-btn-mark />
       </button>
     </div>
   </div>

@@ -21,7 +21,6 @@ export interface DailyGame {
   }
 }
 
-export interface IdiomValidation {
+export interface Pronunciations {
   pronunciations: Record<string, string[]>
-  validity: Record<string, boolean>
 }

@@ -21,6 +21,13 @@ const result = computed(() => {
   }
   return []
 })
+const displayedWord = computed(() => {
+  const characters = Array.from(props.word)
+  return characters
+    .concat(Array(Math.max(0, WORD_LENGTH - characters.length)).fill(' '))
+    .slice(0, WORD_LENGTH)
+    .join('')
+})
 
 const flip = ref(false)
 
@@ -36,7 +43,7 @@ watchEffect(() => {
 <template>
   <div class="word-row flex">
     <div
-      v-for="(c, i) in parseWord(word.padEnd(WORD_LENGTH, ' '), answer || todayAnswer.word)"
+      v-for="(c, i) in parseWord(displayedWord, answer || todayAnswer.word)"
       :key="i"
       :class="[flip ? 'revealed' : '']"
       class="w-20 h-20 m-1 tile"

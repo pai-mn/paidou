@@ -1,9 +1,8 @@
 import path from 'node:path'
 import { Hono } from 'hono'
 import { getDailyGame } from '#/server/game/index.ts'
-import { checkValidIdiom } from '#/server/idioms/check.ts'
-import { getWordPinyin } from '#/server/idioms/idioms.ts'
-import type { ApiError, ApiSuccess, DailyGame, IdiomValidation } from '#/shared/api-types.ts'
+import { getWordPinyin } from '#/server/pronunciations.ts'
+import type { ApiError, ApiSuccess, DailyGame, Pronunciations } from '#/shared/api-types.ts'
 
 export const app = new Hono()
 const distDir = path.resolve(import.meta.dirname, '../../dist')
@@ -16,20 +15,19 @@ app.get('/api/game', (c) => {
   return c.json<ApiSuccess<DailyGame>>({ data })
 })
 
-app.post('/api/idioms/validate', async (c) => {
+app.post('/api/pronunciations', async (c) => {
   const body = await c.req.json<{ words?: unknown }>().catch(() => undefined)
   if (!body || !Array.isArray(body.words) || body.words.some((word) => typeof word !== 'string')) {
     return c.json<ApiError>({ error: { code: 'INVALID_WORDS', message: 'Words must be an array of strings' } }, 400)
   }
   if (body.words.length > 5000) {
-    return c.json<ApiError>({ error: { code: 'TOO_MANY_WORDS', message: 'At most 5000 words can be validated' } }, 400)
+    return c.json<ApiError>({ error: { code: 'TOO_MANY_WORDS', message: 'At most 5000 words can be processed' } }, 400)
   }
 
-  const validity = Object.fromEntries(body.words.map((word) => [word, checkValidIdiom(word, true)]))
   const pronunciations = Object.fromEntries(
     body.words.map((word) => [word, Array.from(word).length <= 16 ? getWordPinyin(word) : []]),
   )
-  return c.json<ApiSuccess<IdiomValidation>>({ data: { pronunciations, validity } })
+  return c.json<ApiSuccess<Pronunciations>>({ data: { pronunciations } })
 })
 
 app.get('/api/*', (c) => c.json<ApiError>({ error: { code: 'NOT_FOUND', message: 'API endpoint not found' } }, 404))

@@ -1,24 +1,21 @@
 import { getBeijingGameDate } from '#/server/game/date.ts'
 import { answerCandidates } from '#/server/game/answers.ts'
-import { seedShuffle } from '#/server/game/utils.ts'
-import { getWordPinyin } from '#/server/idioms/idioms.ts'
+import { avoidBoundaryRepeat, seedShuffle } from '#/server/game/utils.ts'
+import { getWordPinyin } from '#/server/pronunciations.ts'
 import { getHint } from '#/shared/game.ts'
 import type { DailyGame } from '#/shared/api-types.ts'
 
 const SCHEDULE_VERSION = 'paidou-v1'
-const cycleCache = new Map<number, string[][]>()
+const cycleCache = new Map<number, [string, string][]>()
 
-function getCycle(cycle: number): string[][] {
+function getCycle(cycle: number): [string, string][] {
   const cached = cycleCache.get(cycle)
   if (cached) return cached
 
   const answers = seedShuffle([...answerCandidates], `${SCHEDULE_VERSION}-${cycle}`)
   if (cycle > 0) {
     const previousAnswer = getCycle(cycle - 1).at(-1)?.[0]
-    if (answers[0]?.[0] === previousAnswer) {
-      const swapIndex = answers.findIndex(([word]) => word !== previousAnswer)
-      ;[answers[0], answers[swapIndex]] = [answers[swapIndex], answers[0]]
-    }
+    avoidBoundaryRepeat(answers, previousAnswer)
   }
 
   cycleCache.set(cycle, answers)

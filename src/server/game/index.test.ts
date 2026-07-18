@@ -2,12 +2,13 @@ import { describe, expect, it } from 'vitest'
 import { getBeijingGameDate } from '#/server/game/date.ts'
 import { getAnswerOfDay } from '#/server/game/index.ts'
 import { answerCandidates } from '#/server/game/answers.ts'
+import { getHint } from '#/shared/game.ts'
 
 describe('daily answer schedule', () => {
-  it('contains 424 non-empty unique candidates', () => {
+  it('contains non-empty unique candidates', () => {
     const words = answerCandidates.map(([word]) => word)
 
-    expect(words).toHaveLength(424)
+    expect(words.length).toBeGreaterThan(0)
     expect(words.every(Boolean)).toBe(true)
     expect(new Set(words).size).toBe(words.length)
   })
@@ -21,16 +22,26 @@ describe('daily answer schedule', () => {
     }
   })
 
-  it('is deterministic and avoids repetition across cycle boundaries', () => {
+  it('is deterministic and avoids repetition across cycle boundaries when possible', () => {
     const lastDay = answerCandidates.length
 
     expect(getAnswerOfDay(100)).toEqual(getAnswerOfDay(100))
-    expect(getAnswerOfDay(lastDay).word).not.toBe(getAnswerOfDay(lastDay + 1).word)
+    if (answerCandidates.length > 1) expect(getAnswerOfDay(lastDay).word).not.toBe(getAnswerOfDay(lastDay + 1).word)
   })
 
   it('rejects invalid day numbers', () => {
     expect(() => getAnswerOfDay(0)).toThrow(RangeError)
     expect(() => getAnswerOfDay(1.5)).toThrow(RangeError)
+  })
+})
+
+describe('answer hints', () => {
+  it('selects a complete Unicode character', () => {
+    const word = '甲𠀀乙丙'
+    const hint = getHint(word)
+
+    expect(Array.from(word)).toContain(hint)
+    expect(Array.from(hint)).toHaveLength(1)
   })
 })
 

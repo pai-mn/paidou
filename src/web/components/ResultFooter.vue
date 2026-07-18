@@ -18,7 +18,6 @@ const hintText = computed(() => {
   <div class="whitespace-nowrap opacity-50 my-1 text-sm text-center">
     <template v-if="day"> {{ dayNoHanzi }} · </template>
     {{ hintText }} ·
-    <template v-if="meta.strict"> {{ t('strict-mode') }} · </template>
     {{ formatDuration(meta.duration || 0) }}
   </div>
 </template>

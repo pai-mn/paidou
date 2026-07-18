@@ -1,38 +1,30 @@
 <script setup lang="ts">
 import { useMutation } from '@tanstack/vue-query'
 import { filterNonChineseChars } from '#/shared/tools/hanzi/filter.ts'
-import { validateIdioms } from '#/web/api/idioms.ts'
+import { getPronunciations } from '#/web/api/pronunciations.ts'
 import { cachePinyin } from '#/web/logic/pinyin.ts'
 import { hasOpenModal, showCheatSheet, showFailed, showHint } from '#/web/modal-state.ts'
 import { answer, isDev, isFailed, isFinished } from '#/web/state.ts'
-import { markStart, meta, tries, useNoHint, useStrictMode } from '#/web/storage.ts'
+import { markStart, meta, tries, useNoHint } from '#/web/storage.ts'
 import { t } from '#/web/i18n.ts'
 import { TRIES_LIMIT, WORD_LENGTH } from '#/shared/game-constants.ts'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')
 const inputValue = ref('')
-const showToast = autoResetRef(false, 1000)
-const shake = autoResetRef(false, 500)
+const inputLength = computed(() => Array.from(input.value).length)
 
 const isFinishedDelay = debouncedRef(isFinished, 800)
 const validation = useMutation({
-  mutationFn: async (word: string) => validateIdioms([word]),
+  mutationFn: async (word: string) => getPronunciations([word]),
 })
 
 async function enter() {
-  if (input.value.length !== WORD_LENGTH || validation.isPending.value) return
+  if (inputLength.value !== WORD_LENGTH || validation.isPending.value) return
   const word = input.value
   const data = await validation.mutateAsync(word).catch(() => undefined)
   const pronunciation = data?.pronunciations[word]
   if (pronunciation) cachePinyin(word, pronunciation)
-  const isValid = !useStrictMode.value || data?.validity[word] === true
-  if (!isValid) {
-    showToast.value = true
-    shake.value = true
-    return false
-  }
-  if (meta.value.strict == null) meta.value.strict = useStrictMode.value
   tries.value.push(word)
   input.value = ''
   inputValue.value = ''
@@ -45,7 +37,8 @@ function reset() {
 }
 function handleInput(e: Event) {
   const el = e.target! as HTMLInputElement
-  input.value = filterNonChineseChars(el.value).slice(0, 4)
+  input.value = Array.from(filterNonChineseChars(el.value)).slice(0, WORD_LENGTH).join('')
+  inputValue.value = input.value
   markStart()
 }
 function focus() {
@@ -96,7 +89,7 @@ watchEffect(() => {
         </div>
       </template>
 
-      <WordBlocks v-if="!isFinished" :class="{ shake }" :word="input" :active="true" @click="focus()" />
+      <WordBlocks v-if="!isFinished" :word="input" :active="true" @click="focus()" />
 
       <div class="mt-1" />
 
@@ -110,23 +103,13 @@ watchEffect(() => {
               autocomplete="false"
               :placeholder="t('input-placeholder')"
               :disabled="isFinished || validation.isPending.value"
-              :class="{ shake }"
               @input="handleInput"
               @keydown.enter="enter"
               class="bg-transparent guess-input-field w-[21.5rem] p-3 outline-none text-center"
             />
-            <div
-              :aria-hidden="!showToast"
-              :class="showToast ? '' : 'opacity-0 translate-y-[-0.25rem]'"
-              class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-base transition-all duration-300 text-mis pointer-events-none"
-            >
-              <span class="tracking-[1px] pl-1">
-                {{ t('invalid-idiom') }}
-              </span>
-            </div>
           </div>
           <button
-            :disabled="input.length !== WORD_LENGTH || validation.isPending.value"
+            :disabled="inputLength !== WORD_LENGTH || validation.isPending.value"
             @click="enter"
             class="mt-3 btn px-6 py-2"
           >

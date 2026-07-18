@@ -24,7 +24,7 @@ export function parsePinyin(pinyin: string, mode: InputMode = 'py', spMode: SpMo
 }
 
 export function parseChar(char: string, pinyin?: string, mode?: InputMode, spMode?: SpMode): ParsedChar {
-  if (!pinyin) pinyin = getPinyin(char)[0]
+  if (pinyin == null) pinyin = getPinyin(char)[0]
   const tone = pinyin.match(/[\d]$/)?.[0] || ''
   if (tone) pinyin = pinyin.slice(0, -tone.length).trim()
 
@@ -51,12 +51,13 @@ export function parseChar(char: string, pinyin?: string, mode?: InputMode, spMod
 export function parseWord(word: string, answer?: string, mode?: InputMode, spMode?: SpMode) {
   const pinyins = getPinyin(word)
   const chars = Array.from(word)
+  const answerChars = answer ? Array.from(answer) : undefined
   const answerPinyin = answer ? getPinyin(answer) : undefined
 
   return chars.map((char, i): ParsedChar => {
     let pinyin = pinyins[i] || ''
     // try match the pinyin from the answer word
-    if (answerPinyin && answer && answer.includes(char)) pinyin = answerPinyin[answer.indexOf(char)] || pinyin
+    if (answerPinyin && answerChars?.includes(char)) pinyin = answerPinyin[answerChars.indexOf(char)] || pinyin
     return parseChar(char, pinyin, mode, spMode)
   })
 }

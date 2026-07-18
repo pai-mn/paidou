@@ -30,6 +30,5 @@ export interface TriesMeta {
   tries?: string[]
   hint?: boolean
   hintLevel?: number
-  strict?: boolean
   sent?: boolean
 }
