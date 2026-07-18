@@ -35,7 +35,7 @@ const lines = computed(() => {
     '',
     ...table,
     '',
-    'handle.antfu.me',
+    'paidou.pai.mn',
   ]
 })
 

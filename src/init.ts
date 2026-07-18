@@ -1,7 +1,6 @@
 import { initialized, markEnd, markStart, meta, pauseTimer } from './storage'
 import { answer, dayNo, daySince, isDev, isFinished, isPassed, showCheatSheet, showHelp } from './state'
 import { t } from './i18n'
-import { answers } from './answers/list'
 import { START_DATE } from './logic/constants'
 import { tryFixAnswer } from './logic/answer-fix'
 
@@ -62,11 +61,4 @@ nextTick(() => {
 if (isDev || import.meta.hot) {
   const theDate = new Date(+START_DATE + dayNo.value * 86400000)
   console.log(`D${dayNo.value}`, theDate.toLocaleDateString(), answer.value.word, answer.value.hint)
-}
-
-if (import.meta.hot) {
-  console.log(`${answers.length} days prepared`)
-  console.log(`${answers.length - dayNo.value} days left`)
-  if ((answers.length - daySince.value) < 10)
-    throw new Error('Not enough days left!')
 }
