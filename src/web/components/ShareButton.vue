@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { showShareDialog } from '#/modal-state.ts'
-import { t } from '#/i18n.ts'
+import { showShareDialog } from '#/web/modal-state.ts'
+import { t } from '#/web/i18n.ts'
 
 function open() {
   showShareDialog.value = true

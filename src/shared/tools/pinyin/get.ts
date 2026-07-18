@@ -1,5 +1,5 @@
 import { pinyin } from 'pinyin-pro'
-import { parsePinyin } from '#/pinyin/parse.ts'
+import { parsePinyin } from '#/shared/tools/pinyin/parse.ts'
 
 export function getPinyinRaw(text: string) {
   return pinyin(text, { toneType: 'num', type: 'array' })

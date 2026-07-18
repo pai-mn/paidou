@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { numberToHanzi } from '#/logic/utils.ts'
+import { numberToHanzi } from '#/web/logic/utils.ts'
 
 test('numberToHanzi', () => {
   expect(numberToHanzi(0)).toMatchInlineSnapshot('"零"')

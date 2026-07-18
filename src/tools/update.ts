@@ -1,35 +1,31 @@
 import fs from 'fs'
 import c from 'ansis'
-import { toZhuyin } from '@hankit/tools'
+import { parse } from 'csv-parse/sync'
+import { stringify } from 'csv-stringify/sync'
+import { toZhuyin } from '#/shared/tools/zhuyin/convert.ts'
 import { pinyin } from 'pinyin-pro'
-import _polyphones from '#shared/data/polyphones.json'
-import { normalizePinyin } from '#tools/utils.ts'
-import { getWordInfoFromZDict } from '#tools/zdict.ts'
+import { normalizePinyin } from '#/tools/utils.ts'
+import { getWordInfoFromZDict } from '#/tools/zdict.ts'
 
-const polyphones = _polyphones as Record<string, string>
-const idioms = new Set(
-  fs
-    .readFileSync('src/shared/data/idioms.txt', 'utf8')
-    .split('\n')
-    .map((i) => i.trim())
-    .filter(Boolean),
+interface WordRow {
+  word: string
+}
+
+interface PolyphoneRow extends WordRow {
+  pinyin: string
+}
+
+function readCsv<T>(path: string): T[] {
+  if (!fs.existsSync(path)) return []
+  return parse(fs.readFileSync(path, 'utf8'), { bom: true, columns: true, skip_empty_lines: true, trim: true }) as T[]
+}
+
+const polyphones = Object.fromEntries(
+  readCsv<PolyphoneRow>('src/server/data/polyphones.csv').map(({ word, pinyin }) => [word, pinyin]),
 )
-const newOnes = new Set(
-  fs
-    .readFileSync('src/shared/data/new.txt', 'utf8')
-    .split('\n')
-    .map((i) => i.trim())
-    .filter(Boolean),
-)
-const unknown = new Set(
-  fs.existsSync('src/shared/data/unknown.txt')
-    ? fs
-        .readFileSync('src/shared/data/unknown.txt', 'utf8')
-        .split('\n')
-        .map((i) => i.trim())
-        .filter(Boolean)
-    : [],
-)
+const idioms = new Set(readCsv<WordRow>('src/server/data/idioms.csv').map(({ word }) => word))
+const newOnes = new Set(readCsv<WordRow>('src/server/data/pending-idioms.csv').map(({ word }) => word))
+const unknown = new Set(readCsv<WordRow>('src/server/data/unknown-idioms.csv').map(({ word }) => word))
 
 async function getPinyinWeb(word: string) {
   return pinyin(word, { toneType: 'num', type: 'array' }).join(' ')
@@ -121,13 +117,37 @@ async function run() {
 function save() {
   console.log('\n---SAVING---')
   fs.writeFileSync(
-    'src/shared/data/polyphones.json',
-    JSON.stringify(Object.fromEntries(Object.entries(polyphones).sort((a, b) => a[0].localeCompare(b[0]))), null, 2),
-    'utf8',
+    'src/server/data/polyphones.csv',
+    stringify(
+      Object.entries(polyphones)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([word, pinyin]) => ({ word, pinyin })),
+      { columns: ['word', 'pinyin'], header: true },
+    ),
   )
-  fs.writeFileSync('src/shared/data/idioms.txt', Array.from(new Set(idioms)).sort().join('\n'), 'utf8')
-  fs.writeFileSync('src/shared/data/new.txt', Array.from(newOnes).join('\n'), 'utf8')
-  fs.writeFileSync('src/shared/data/unknown.txt', Array.from(unknown).join('\n'), 'utf8')
+  fs.writeFileSync(
+    'src/server/data/idioms.csv',
+    stringify(
+      Array.from(idioms)
+        .sort()
+        .map((word) => ({ word })),
+      { columns: ['word'], header: true },
+    ),
+  )
+  fs.writeFileSync(
+    'src/server/data/pending-idioms.csv',
+    stringify(
+      Array.from(newOnes).map((word) => ({ word })),
+      { columns: ['word'], header: true },
+    ),
+  )
+  fs.writeFileSync(
+    'src/server/data/unknown-idioms.csv',
+    stringify(
+      Array.from(unknown).map((word) => ({ word })),
+      { columns: ['word'], header: true },
+    ),
+  )
 }
 
 run()

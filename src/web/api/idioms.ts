@@ -1,4 +1,4 @@
-import type { ApiError, ApiSuccess, IdiomValidation } from '#shared/api-types.ts'
+import type { ApiError, ApiSuccess, IdiomValidation } from '#/shared/api-types.ts'
 
 export async function validateIdioms(words: string[], signal?: AbortSignal): Promise<IdiomValidation> {
   const response = await fetch('/api/idioms/validate', {

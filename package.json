@@ -4,26 +4,20 @@
   "type": "module",
   "private": true,
   "imports": {
-    "#/*": "./src/web/*",
-    "#server/*": "./src/server/*",
-    "#shared/*": "./src/shared/*",
-    "#tools/*": "./tools/*"
+    "#/*": "./src/*"
   },
   "packageManager": "bun@1.3.13",
   "engines": {
     "bun": ">=1.3.13",
     "node": ">=22.12.0"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "dev": "concurrently -k -n api,web \"bun --watch src/server/index.ts\" \"vite --port 4444\"",
     "build": "vite build",
     "format": "prettier --write .",
     "preview": "vite preview",
     "start": "NODE_ENV=production bun src/server/index.ts",
-    "update": "TEST=true vite-node tools/update.ts",
+    "update": "TEST=true vite-node src/tools/update.ts",
     "test": "vitest"
   },
   "dependencies": {
@@ -31,6 +25,7 @@
     "@tanstack/vue-query": "5.101.2",
     "@vueuse/core": "14.3.0",
     "canvas-confetti": "1.9.4",
+    "csv-parse": "7.0.1",
     "hono": "4.12.30",
     "html-to-image": "1.11.13",
     "pinyin-pro": "3.28.1",
@@ -55,6 +50,7 @@
     "ansis": "4.3.1",
     "cheerio": "1.2.0",
     "concurrently": "10.0.3",
+    "csv-stringify": "6.8.1",
     "file-saver": "2.0.5",
     "jsdom": "29.1.1",
     "ohmyfetch": "0.4.21",

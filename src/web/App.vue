@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import '#/init.ts'
-import { answer, dayNo, daySince, initializeAnswerQuery, isAnswerLoading, isDev } from '#/state.ts'
-import { colorblind } from '#/storage.ts'
-import { DAYS_PLAY_BACK } from '#shared/game-constants.ts'
+import '#/web/init.ts'
+import { answer, dayNo, initializeAnswerQuery, isAnswerLoading } from '#/web/state.ts'
+import { colorblind } from '#/web/storage.ts'
+import { t } from '#/web/i18n.ts'
 
 const { height } = useWindowSize()
-initializeAnswerQuery()
+const gameQuery = initializeAnswerQuery()
+const isAnswerError = gameQuery.isError
 
 watchEffect(() => {
   document.documentElement.style.setProperty('--vh', `${height.value / 100}px`)
@@ -14,14 +15,15 @@ watchEffect(() => {
 
 <template>
   <main font-sans text="center gray-700 dark:gray-300" select-none :class="{ colorblind }">
-    <NotTodayBanner v-if="dayNo < daySince" />
     <Navbar />
     <div class="game-stage" p="4">
       <div v-if="isAnswerLoading" />
+      <div v-else-if="isAnswerError" flex="~ col gap-4" items-center py12>
+        <div>{{ t('game-load-error') }}</div>
+        <button btn @click="gameQuery.refetch()">{{ t('retry') }}</button>
+      </div>
       <NoQuizToday v-else-if="!answer.word" />
-      <NoFuturePlay v-else-if="dayNo > daySince && !isDev" />
-      <NoPastPlay v-else-if="daySince - dayNo > DAYS_PLAY_BACK && !isDev" />
-      <Play v-else />
+      <Play v-else :key="dayNo" />
     </div>
     <ModalsLayer />
     <Confetti />

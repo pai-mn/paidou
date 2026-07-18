@@ -1,5 +1,0 @@
-export * from '#/pinyin/constants.ts'
-export * from '#/pinyin/phonetic.ts'
-export * from '#/pinyin/parse.ts'
-export * from '#/pinyin/styles.ts'
-export * from '#/pinyin/get.ts'

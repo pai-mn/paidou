@@ -1,5 +1,5 @@
-import hans from '#/locales/zh-cn.json'
-import hant from '#/locales/zh-tw.json'
+import hans from '#/web/locales/zh-cn.json'
+import hant from '#/web/locales/zh-tw.json'
 
 const lang = window.navigator.language?.toLowerCase() || ''
 export const preferTraditional = lang.includes('hant') || lang.includes('tw') || lang.includes('hk')

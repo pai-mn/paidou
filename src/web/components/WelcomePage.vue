@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { showHelp, showVariants } from '#/modal-state.ts'
-import { isDark, useMask } from '#/state.ts'
-import { initialized, inputMode } from '#/storage.ts'
-import { t } from '#/i18n.ts'
+import { showHelp, showVariants } from '#/web/modal-state.ts'
+import { isDark, useMask } from '#/web/state.ts'
+import { initialized, inputMode } from '#/web/storage.ts'
+import { t } from '#/web/i18n.ts'
 
 function start() {
   showHelp.value = false

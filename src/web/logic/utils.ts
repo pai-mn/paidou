@@ -1,7 +1,10 @@
-import type { SpMode } from '@hankit/tools'
-import { pinyinInitials, toShuangpin, toSimplified, toZhuyin } from '@hankit/tools'
-import type { InputMode, MatchResult, ParsedChar } from '#/logic/types.ts'
-import { getPinyin } from '#/logic/pinyin.ts'
+import { toSimplified } from '#/shared/tools/convert.ts'
+import { pinyinInitials } from '#/shared/tools/pinyin/constants.ts'
+import type { SpMode } from '#/shared/tools/shuangpin/constants.ts'
+import { toShuangpin } from '#/shared/tools/shuangpin/covert.ts'
+import { toZhuyin } from '#/shared/tools/zhuyin/convert.ts'
+import type { InputMode, MatchResult, ParsedChar } from '#/web/logic/types.ts'
+import { getPinyin } from '#/web/logic/pinyin.ts'
 
 export function parsePinyin(pinyin: string, mode: InputMode = 'py', spMode: SpMode = 'sougou') {
   let parts: string[] = []
@@ -129,16 +132,4 @@ export function numberToHanzi(number: number) {
     .replace('二十', '廿')
     .replace(/零+/, '零')
     .replace(/(.)零$/, '$1')
-}
-
-/**
- * Checks whether a given date is in daylight saving time.
- * @param date the date object to be checked.
- * @returns true if the date is in daylight saving time, false if it's not.
- */
-export function isDstObserved(date: Date) {
-  const jan = new Date(date.getFullYear(), 0, 1)
-  const jul = new Date(date.getFullYear(), 6, 1)
-  const standardTimezoneOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset())
-  return date.getTimezoneOffset() < standardTimezoneOffset
 }

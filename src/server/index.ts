@@ -1,4 +1,4 @@
-import { app } from '#server/app.ts'
+import { app } from '#/server/app.ts'
 
 const port = Number(process.env.PORT || 8787)
 

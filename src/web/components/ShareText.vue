@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { t } from '#/i18n.ts'
-import { answer, dayNoHanzi, isMobile, parseWord, testAnswer } from '#/state.ts'
-import { meta, tries } from '#/storage.ts'
+import { t } from '#/web/i18n.ts'
+import { answer, dayNoHanzi, isMobile, parseWord, testAnswer } from '#/web/state.ts'
+import { meta, tries } from '#/web/storage.ts'
 
 const lines = computed(() => {
   const table = tries.value.map((word) => {

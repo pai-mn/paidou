@@ -1,0 +1,47 @@
+import { describe, expect, it } from 'vitest'
+import { getBeijingGameDate } from '#/server/game/date.ts'
+import { getAnswerOfDay } from '#/server/game/index.ts'
+import { answerCandidates } from '#/server/game/answers.ts'
+
+describe('daily answer schedule', () => {
+  it('contains 424 non-empty unique candidates', () => {
+    const words = answerCandidates.map(([word]) => word)
+
+    expect(words).toHaveLength(424)
+    expect(words.every(Boolean)).toBe(true)
+    expect(new Set(words).size).toBe(words.length)
+  })
+
+  it('uses every candidate exactly once per cycle', () => {
+    for (let cycle = 0; cycle < 3; cycle++) {
+      const firstDay = cycle * answerCandidates.length + 1
+      const words = answerCandidates.map((_, index) => getAnswerOfDay(firstDay + index).word)
+
+      expect(new Set(words)).toEqual(new Set(answerCandidates.map(([word]) => word)))
+    }
+  })
+
+  it('is deterministic and avoids repetition across cycle boundaries', () => {
+    const lastDay = answerCandidates.length
+
+    expect(getAnswerOfDay(100)).toEqual(getAnswerOfDay(100))
+    expect(getAnswerOfDay(lastDay).word).not.toBe(getAnswerOfDay(lastDay + 1).word)
+  })
+
+  it('rejects invalid day numbers', () => {
+    expect(() => getAnswerOfDay(0)).toThrow(RangeError)
+    expect(() => getAnswerOfDay(1.5)).toThrow(RangeError)
+  })
+})
+
+describe('Beijing game date', () => {
+  it('changes at midnight in Asia/Shanghai', () => {
+    const beforeMidnight = getBeijingGameDate(new Date('2026-07-18T15:59:59.999Z'))
+    const atMidnight = getBeijingGameDate(new Date('2026-07-18T16:00:00.000Z'))
+
+    expect(beforeMidnight.date).toBe('2026-07-18')
+    expect(atMidnight.date).toBe('2026-07-19')
+    expect(atMidnight.day).toBe(beforeMidnight.day + 1)
+    expect(beforeMidnight.nextGameAt).toBe('2026-07-18T16:00:00.000Z')
+  })
+})

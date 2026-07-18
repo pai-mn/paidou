@@ -1,9 +1,8 @@
-import { initialized, markEnd, markStart, meta, pauseTimer } from '#/storage.ts'
-import { showCheatSheet, showHelp } from '#/modal-state.ts'
-import { answer, dayNo, daySince, isDev, isFinished, isPassed } from '#/state.ts'
-import { t } from '#/i18n.ts'
-import { START_DATE } from '#shared/game-constants.ts'
-import { tryFixAnswer } from '#/logic/answer-fix.ts'
+import { initialized, markEnd, markStart, meta, pauseTimer } from '#/web/storage.ts'
+import { showCheatSheet, showHelp } from '#/web/modal-state.ts'
+import { answer, dayNo, gameDate, isDev, isFinished, isPassed } from '#/web/state.ts'
+import { t } from '#/web/i18n.ts'
+import { tryFixAnswer } from '#/web/logic/answer-fix.ts'
 
 useTitle(computed(() => `${t('name')} - ${t('description')}`))
 
@@ -11,11 +10,6 @@ if (!initialized.value) showHelp.value = true
 
 watchEffect(() => {
   if (isPassed.value) meta.value.passed = true
-})
-
-watch(daySince, (n, o) => {
-  // on day changed
-  if (o === dayNo.value && isFinished.value) dayNo.value = n
 })
 
 watch(
@@ -60,10 +54,7 @@ watch(
   ({ word, hint }) => {
     if (!word) return
     tryFixAnswer(dayNo.value, word)
-    if (isDev || import.meta.hot) {
-      const theDate = new Date(+START_DATE + dayNo.value * 86400000)
-      console.log(`D${dayNo.value}`, theDate.toLocaleDateString(), word, hint)
-    }
+    if (isDev) console.log(`D${dayNo.value}`, gameDate.value, word, hint)
   },
   { immediate: true },
 )

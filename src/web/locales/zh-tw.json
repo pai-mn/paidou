@@ -74,6 +74,8 @@
   "send-game-data-button": "發送匿名遊戲數據",
   "share": "分享",
   "settings": "設定",
+  "game-load-error": "題目載入失敗",
+  "retry": "重試",
   "share-copied": "分享內容已複製到剪貼板",
   "share-not-copied": "請複製以下文本進行分享",
   "share-with-system-api": "調用系統分享",

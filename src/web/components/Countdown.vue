@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { now } from '#/state.ts'
-import { t } from '#/i18n.ts'
-import { START_DATE } from '#shared/game-constants.ts'
-import { isDstObserved } from '#/logic/utils.ts'
-const ms = computed(
-  () => 86400000 - (((isDstObserved(now.value) ? +now.value + 3600000 : +now.value) - +START_DATE) % 86400000),
-)
+import { nextGameAt, now, serverClockOffset } from '#/web/state.ts'
+import { t } from '#/web/i18n.ts'
+const ms = computed(() => Math.max(0, new Date(nextGameAt.value).getTime() - (+now.value + serverClockOffset.value)))
 const formatted = computed(() => {
   const h = Math.floor((ms.value % 86400000) / 3600000)
   const m = Math.floor((ms.value % 3600000) / 60000)

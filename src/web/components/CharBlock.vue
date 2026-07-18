@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { MatchResult, MatchType, ParsedChar } from '#/logic/types.ts'
-import { inputMode, useCheckAssist } from '#/storage.ts'
-import { getSymbolState, useMask, useNumberTone } from '#/state.ts'
+import type { MatchResult, MatchType, ParsedChar } from '#/web/logic/types.ts'
+import { inputMode, useCheckAssist } from '#/web/storage.ts'
+import { getSymbolState, useMask, useNumberTone } from '#/web/state.ts'
 
 const props = defineProps<{
   char?: ParsedChar

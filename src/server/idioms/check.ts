@@ -1,4 +1,4 @@
-import { getIdiom } from '#server/idioms/idioms.ts'
+import { getIdiom } from '#/server/idioms/idioms.ts'
 
 export function checkValidIdiom(word: string, strict = false) {
   if (!strict) return true

@@ -1,24 +1,18 @@
 import path from 'node:path'
 import { Hono } from 'hono'
-import { getAnswerOfDay } from '#server/game/index.ts'
-import { checkValidIdiom } from '#server/idioms/check.ts'
-import type { ApiError, ApiSuccess, DailyGame, IdiomValidation } from '#shared/api-types.ts'
+import { getDailyGame } from '#/server/game/index.ts'
+import { checkValidIdiom } from '#/server/idioms/check.ts'
+import { getWordPinyin } from '#/server/idioms/idioms.ts'
+import type { ApiError, ApiSuccess, DailyGame, IdiomValidation } from '#/shared/api-types.ts'
 
 export const app = new Hono()
 const distDir = path.resolve(import.meta.dirname, '../../dist')
 
 app.get('/api/health', (c) => c.json({ data: { status: 'ok' } }))
 
-app.get('/api/game/:day', (c) => {
-  const day = Number(c.req.param('day'))
-  if (!Number.isSafeInteger(day) || day < 0) {
-    return c.json<ApiError>({ error: { code: 'INVALID_DAY', message: 'Day must be a non-negative integer' } }, 400)
-  }
-
-  const data: DailyGame = {
-    day,
-    answer: getAnswerOfDay(day),
-  }
+app.get('/api/game', (c) => {
+  const data: DailyGame = getDailyGame()
+  c.header('Cache-Control', 'no-store')
   return c.json<ApiSuccess<DailyGame>>({ data })
 })
 
@@ -32,7 +26,10 @@ app.post('/api/idioms/validate', async (c) => {
   }
 
   const validity = Object.fromEntries(body.words.map((word) => [word, checkValidIdiom(word, true)]))
-  return c.json<ApiSuccess<IdiomValidation>>({ data: { validity } })
+  const pronunciations = Object.fromEntries(
+    body.words.map((word) => [word, Array.from(word).length <= 16 ? getWordPinyin(word) : []]),
+  )
+  return c.json<ApiSuccess<IdiomValidation>>({ data: { pronunciations, validity } })
 })
 
 app.get('/api/*', (c) => c.json<ApiError>({ error: { code: 'NOT_FOUND', message: 'API endpoint not found' } }, 404))

@@ -8,6 +8,7 @@
         "@tanstack/vue-query": "5.101.2",
         "@vueuse/core": "14.3.0",
         "canvas-confetti": "1.9.4",
+        "csv-parse": "7.0.1",
         "hono": "4.12.30",
         "html-to-image": "1.11.13",
         "pinyin-pro": "3.28.1",
@@ -32,6 +33,7 @@
         "ansis": "4.3.1",
         "cheerio": "1.2.0",
         "concurrently": "10.0.3",
+        "csv-stringify": "6.8.1",
         "file-saver": "2.0.5",
         "jsdom": "29.1.1",
         "ohmyfetch": "0.4.21",
@@ -43,13 +45,6 @@
         "vite": "8.1.5",
         "vite-node": "6.0.0",
         "vitest": "4.1.10",
-      },
-    },
-    "packages/tools": {
-      "name": "@hankit/tools",
-      "version": "0.0.1",
-      "devDependencies": {
-        "pinyin-pro": "3.28.1",
       },
     },
   },
@@ -155,8 +150,6 @@
     "@floating-ui/utils": ["@floating-ui/utils@0.2.12", "https://registry.npmmirror.com/@floating-ui/utils/-/utils-0.2.12.tgz", {}, "sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww=="],
 
     "@floating-ui/vue": ["@floating-ui/vue@1.1.11", "https://registry.npmmirror.com/@floating-ui/vue/-/vue-1.1.11.tgz", { "dependencies": { "@floating-ui/dom": "^1.7.6", "@floating-ui/utils": "^0.2.11", "vue-demi": ">=0.13.0" } }, "sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw=="],
-
-    "@hankit/tools": ["@hankit/tools@workspace:packages/tools"],
 
     "@iconify-json/carbon": ["@iconify-json/carbon@1.2.24", "https://registry.npmmirror.com/@iconify-json/carbon/-/carbon-1.2.24.tgz", { "dependencies": { "@iconify/types": "*" } }, "sha512-b7u/eTWE3xFa7UXlRJBSEm6At1y6+F0P3imBEip5/8QeRzouxVjBf80Y2xnu1GYsFo9MYlHA0bZfxxMd5givfw=="],
 
@@ -551,6 +544,10 @@
     "css-what": ["css-what@6.2.2", "https://registry.npmmirror.com/css-what/-/css-what-6.2.2.tgz", {}, "sha512-u/O3vwbptzhMs3L1fQE82ZSLHQQfto5gyZzwteVIEyeaY5Fc7R4dapF/BvRoSYFeqfBk4m0V1Vafq5Pjv25wvA=="],
 
     "csstype": ["csstype@3.2.3", "https://registry.npmmirror.com/csstype/-/csstype-3.2.3.tgz", {}, "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ=="],
+
+    "csv-parse": ["csv-parse@7.0.1", "https://registry.npmmirror.com/csv-parse/-/csv-parse-7.0.1.tgz", {}, "sha512-+2z7Ar0APQ7Uu6fX4cn+pitRmxjZ1WPBcGmZFKmA74FCyi7Et/XZx8cjNQ5CjbZ4HCOxXCOpRBYvYH08Qa003A=="],
+
+    "csv-stringify": ["csv-stringify@6.8.1", "https://registry.npmmirror.com/csv-stringify/-/csv-stringify-6.8.1.tgz", {}, "sha512-tZ6X6TKQyQgCo5OptXcyAbfN1pwmoxEqELPQ7KFazNErx7kiVsDK8o+VYRXhfMl4N9vvOOLXuioquR2MeP847A=="],
 
     "data-urls": ["data-urls@7.0.0", "https://registry.npmmirror.com/data-urls/-/data-urls-7.0.0.tgz", { "dependencies": { "whatwg-mimetype": "^5.0.0", "whatwg-url": "^16.0.0" } }, "sha512-23XHcCF+coGYevirZceTVD7NdJOqVn+49IHyxgszm+JIiHLoB2TkmPtsYkNWT1pvRSGkc35L6NHs0yHkN2SumA=="],
 

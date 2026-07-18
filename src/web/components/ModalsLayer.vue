@@ -8,8 +8,8 @@ import {
   showSettings,
   showShareDialog,
   showVariants,
-} from '#/modal-state.ts'
-import { t } from '#/i18n.ts'
+} from '#/web/modal-state.ts'
+import { t } from '#/web/i18n.ts'
 </script>
 
 <template>

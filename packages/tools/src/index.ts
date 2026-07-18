@@ -1,6 +1,0 @@
-export * from '#/convert.ts'
-export * from '#/types.ts'
-export * from '#/pinyin/index.ts'
-export * from '#/zhuyin/index.ts'
-export * from '#/hanzi/index.ts'
-export * from '#/shuangpin/index.ts'

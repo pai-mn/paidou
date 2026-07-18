@@ -1,26 +1,36 @@
-import { describe, expect, it } from 'vitest'
-import { app } from '#server/app.ts'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { app } from '#/server/app.ts'
+
+afterEach(() => vi.useRealTimers())
 
 describe('game API', () => {
   it('returns a structured daily game', async () => {
-    const response = await app.request('/api/game/1660')
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-07-18T08:00:00.000Z'))
+
+    const response = await app.request('/api/game')
     const payload = await response.json()
 
     expect(response.status).toBe(200)
+    expect(response.headers.get('Cache-Control')).toBe('no-store')
     expect(payload).toMatchObject({
       data: {
         day: 1660,
+        date: '2026-07-18',
+        nextGameAt: '2026-07-18T16:00:00.000Z',
+        serverTime: '2026-07-18T08:00:00.000Z',
         answer: {
           word: expect.stringMatching(/^.{4}$/u),
           hint: expect.any(String),
+          pinyin: expect.arrayContaining([expect.any(String)]),
         },
       },
     })
   })
 
-  it('rejects invalid days', async () => {
-    const response = await app.request('/api/game/not-a-day')
-    expect(response.status).toBe(400)
+  it('does not accept a client-selected day', async () => {
+    const response = await app.request('/api/game/1660')
+    expect(response.status).toBe(404)
   })
 
   it('validates idioms in a structured batch response', async () => {
@@ -31,8 +41,14 @@ describe('game API', () => {
     })
 
     expect(response.status).toBe(200)
-    expect(await response.json()).toEqual({
-      data: { validity: { 云淡风轻: true, 云淡风淡: false } },
+    expect(await response.json()).toMatchObject({
+      data: {
+        pronunciations: {
+          云淡风淡: expect.any(Array),
+          云淡风轻: expect.any(Array),
+        },
+        validity: { 云淡风轻: true, 云淡风淡: false },
+      },
     })
   })
 
@@ -51,8 +67,14 @@ describe('game API', () => {
       body: JSON.stringify({ words: ['云淡风轻云', 'test'] }),
     })
 
-    expect(await response.json()).toEqual({
-      data: { validity: { 云淡风轻云: false, test: false } },
+    expect(await response.json()).toMatchObject({
+      data: {
+        pronunciations: {
+          云淡风轻云: expect.any(Array),
+          test: expect.any(Array),
+        },
+        validity: { 云淡风轻云: false, test: false },
+      },
     })
   })
 

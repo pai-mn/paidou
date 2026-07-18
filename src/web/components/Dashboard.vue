@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { validateIdioms } from '#/api/idioms.ts'
-import DashboardItem from '#/components/DashboardItem.vue'
-import { t } from '#/i18n.ts'
-import { showDashboard } from '#/modal-state.ts'
+import { validateIdioms } from '#/web/api/idioms.ts'
+import DashboardItem from '#/web/components/DashboardItem.vue'
+import { t } from '#/web/i18n.ts'
+import { showDashboard } from '#/web/modal-state.ts'
 import {
   averageDurations,
   gamesCount,
@@ -12,7 +12,7 @@ import {
   noHintPassedCount,
   passedCount,
   passedTries,
-} from '#/storage.ts'
+} from '#/web/storage.ts'
 
 const triesMap = computed(() => {
   const map = new Map<number, number>()

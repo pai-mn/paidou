@@ -1,7 +1,6 @@
 import seedrandom from 'seedrandom'
-import { RANDOM_SEED } from '#shared/game-constants.ts'
 
-export function seedShuffle<T>(array: T[], seed = RANDOM_SEED): T[] {
+export function seedShuffle<T>(array: T[], seed: string): T[] {
   const rng = seedrandom(seed)
   let currentIndex = array.length
   let randomIndex

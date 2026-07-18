@@ -16,7 +16,7 @@ const emit = defineEmits<{
     <DialogPortal>
       <DialogOverlay class="modal-mask bg-base fixed inset-0 z-40 opacity-50" />
       <DialogContent
-        aria-describedby="undefined"
+        :aria-describedby="undefined"
         class="modal-panel bg-base border-base fixed z-40 overflow-auto scrolls"
         @close-auto-focus="$event.preventDefault()"
       >

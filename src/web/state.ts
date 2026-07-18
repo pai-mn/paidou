@@ -1,17 +1,11 @@
 import { useQuery } from '@tanstack/vue-query'
-import { fetchDailyGame } from '#/api/game.ts'
-import type { DailyGame } from '#shared/api-types.ts'
-import { START_DATE, TRIES_LIMIT, WORD_LENGTH } from '#shared/game-constants.ts'
-import { getHint } from '#shared/game.ts'
-import type { MatchType, ParsedChar } from '#/logic/types.ts'
-import {
-  parseWord as _parseWord,
-  testAnswer as _testAnswer,
-  checkPass,
-  isDstObserved,
-  numberToHanzi,
-} from '#/logic/utils.ts'
-import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from '#/storage.ts'
+import { fetchDailyGame } from '#/web/api/game.ts'
+import type { DailyGame } from '#/shared/api-types.ts'
+import { TRIES_LIMIT, WORD_LENGTH } from '#/shared/game-constants.ts'
+import type { MatchType, ParsedChar } from '#/web/logic/types.ts'
+import { cachePinyin } from '#/web/logic/pinyin.ts'
+import { parseWord as _parseWord, testAnswer as _testAnswer, checkPass, numberToHanzi } from '#/web/logic/utils.ts'
+import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from '#/web/storage.ts'
 
 export const isIOS =
   /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
@@ -26,31 +20,29 @@ export const useNumberTone = computed(() => {
   return _useNumberTone.value
 })
 
-const params = new URLSearchParams(window.location.search)
-export const isDev = import.meta.hot || params.get('dev') === 'hey'
-export const daySince = useDebounce(
-  computed(() => {
-    // Adjust date for daylight saving time, assuming START_DATE is not in DST
-    const adjustedNow = isDstObserved(now.value) ? new Date(+now.value + 3600000) : now.value
-    return Math.floor((+adjustedNow - +START_DATE) / 86400000)
-  }),
-)
-export const dayNo = ref(+(params.get('d') || daySince.value))
-export const dayNoHanzi = computed(() => `${numberToHanzi(dayNo.value)}日`)
-const customWord = params.get('word')
-const customAnswer = customWord ? { word: customWord, hint: getHint(customWord) } : undefined
+export const isDev = Boolean(import.meta.hot)
 const remoteGame = shallowRef<Readonly<Ref<DailyGame | undefined>>>()
 const remoteGamePending = shallowRef<Readonly<Ref<boolean>>>()
-
-export const answer = computed(() => customAnswer ?? remoteGame.value?.value?.answer ?? { word: '', hint: '' })
-export const isAnswerLoading = computed(() => !customAnswer && (remoteGamePending.value?.value ?? false))
+export const dayNo = computed(() => remoteGame.value?.value?.day ?? 0)
+export const dayNoHanzi = computed(() => `${numberToHanzi(dayNo.value)}日`)
+export const gameDate = computed(() => remoteGame.value?.value?.date ?? '')
+export const nextGameAt = computed(() => remoteGame.value?.value?.nextGameAt ?? '')
+export const serverClockOffset = computed(() => {
+  const serverTime = remoteGame.value?.value?.serverTime
+  return serverTime ? new Date(serverTime).getTime() - Date.now() : 0
+})
+export const answer = computed(() => remoteGame.value?.value?.answer ?? { word: '', hint: '' })
+export const isAnswerLoading = computed(() => remoteGamePending.value?.value ?? true)
 
 export function initializeAnswerQuery() {
-  if (customAnswer) return
-
   const query = useQuery({
-    queryKey: computed(() => ['game', dayNo.value] as const),
-    queryFn: ({ queryKey, signal }) => fetchDailyGame(queryKey[1], signal),
+    queryKey: ['game'],
+    queryFn: async ({ signal }) => {
+      const game = await fetchDailyGame(signal)
+      cachePinyin(game.answer.word, game.answer.pinyin)
+      return game
+    },
+    refetchInterval: 60_000,
   })
   remoteGame.value = query.data
   remoteGamePending.value = query.isPending

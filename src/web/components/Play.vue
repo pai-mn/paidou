@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useMutation } from '@tanstack/vue-query'
-import { filterNonChineseChars } from '@hankit/tools'
-import { validateIdioms } from '#/api/idioms.ts'
-import { hasOpenModal, showCheatSheet, showFailed, showHint } from '#/modal-state.ts'
-import { answer, dayNo, isDev, isFailed, isFinished } from '#/state.ts'
-import { markStart, meta, tries, useNoHint, useStrictMode } from '#/storage.ts'
-import { t } from '#/i18n.ts'
-import { TRIES_LIMIT, WORD_LENGTH } from '#shared/game-constants.ts'
+import { filterNonChineseChars } from '#/shared/tools/hanzi/filter.ts'
+import { validateIdioms } from '#/web/api/idioms.ts'
+import { cachePinyin } from '#/web/logic/pinyin.ts'
+import { hasOpenModal, showCheatSheet, showFailed, showHint } from '#/web/modal-state.ts'
+import { answer, isDev, isFailed, isFinished } from '#/web/state.ts'
+import { markStart, meta, tries, useNoHint, useStrictMode } from '#/web/storage.ts'
+import { t } from '#/web/i18n.ts'
+import { TRIES_LIMIT, WORD_LENGTH } from '#/shared/game-constants.ts'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')
@@ -16,13 +17,16 @@ const shake = autoResetRef(false, 500)
 
 const isFinishedDelay = debouncedRef(isFinished, 800)
 const validation = useMutation({
-  mutationFn: async (word: string) => (await validateIdioms([word])).validity[word] ?? false,
+  mutationFn: async (word: string) => validateIdioms([word]),
 })
 
 async function enter() {
   if (input.value.length !== WORD_LENGTH || validation.isPending.value) return
   const word = input.value
-  const isValid = !useStrictMode.value || (await validation.mutateAsync(word).catch(() => false))
+  const data = await validation.mutateAsync(word).catch(() => undefined)
+  const pronunciation = data?.pronunciations[word]
+  if (pronunciation) cachePinyin(word, pronunciation)
+  const isValid = !useStrictMode.value || data?.validity[word] === true
   if (!isValid) {
     showToast.value = true
     shake.value = true
@@ -128,6 +132,7 @@ watchEffect(() => {
               duration-300
               text-mis
               pointer-events-none
+              :aria-hidden="!showToast"
               :class="showToast ? '' : 'op0 translate-y--1'"
             >
               <span tracking-1 pl1>
@@ -174,11 +179,7 @@ watchEffect(() => {
       <template v-if="isDev">
         <div h-200 />
         <div op50 mb-2>测试用</div>
-        <div flex gap2>
-          <a class="btn" :href="`/?dev=hey&d=${dayNo - 1}`"> 上一天 </a>
-          <button class="btn" @click="reset">重置</button>
-          <a class="btn" :href="`/?dev=hey&d=${dayNo + 1}`"> 下一天 </a>
-        </div>
+        <button class="btn" @click="reset">重置</button>
       </template>
     </div>
   </div>

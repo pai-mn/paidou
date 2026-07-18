@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from '#/i18n.ts'
+import { t } from '#/web/i18n.ts'
 </script>
 
 <template>

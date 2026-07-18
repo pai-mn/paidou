@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { showDashboard, showHelp, showSettings } from '#/modal-state.ts'
-import { isDark, useMask } from '#/state.ts'
-import { gamesCount } from '#/storage.ts'
+import { showDashboard, showHelp, showSettings } from '#/web/modal-state.ts'
+import { isDark, useMask } from '#/web/state.ts'
+import { gamesCount } from '#/web/storage.ts'
 
 const toggleDark = useToggle(isDark)
 const toggleSettings = useToggle(showSettings)

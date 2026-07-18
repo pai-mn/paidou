@@ -10,13 +10,18 @@ export interface ApiError {
 }
 
 export interface DailyGame {
+  date: string
   day: number
+  nextGameAt: string
+  serverTime: string
   answer: {
     word: string
     hint: string
+    pinyin: string[]
   }
 }
 
 export interface IdiomValidation {
+  pronunciations: Record<string, string[]>
   validity: Record<string, boolean>
 }

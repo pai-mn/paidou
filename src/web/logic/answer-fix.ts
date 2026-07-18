@@ -1,5 +1,5 @@
-import { TRIES_LIMIT } from '#shared/game-constants.ts'
-import { history } from '#/storage.ts'
+import { TRIES_LIMIT } from '#/shared/game-constants.ts'
+import { history } from '#/web/storage.ts'
 
 export function tryFixAnswer(day: number, answer: string) {
   const meta = history.value[day]

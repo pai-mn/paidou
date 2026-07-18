@@ -1,5 +1,5 @@
-import sougouMap from '#/map/shuangpin/sougou.json'
-import xiaoheMap from '#/map/shuangpin/xiaohe.json'
+import sougouMap from '#/shared/tools/map/shuangpin/sougou.json'
+import xiaoheMap from '#/shared/tools/map/shuangpin/xiaohe.json'
 export type SpMode = 'sougou' | 'xiaohe'
 
 const shuangpinInitials = 'b p m f d t n l g k h j q r x w y u i v z c s o'.split(' ').sort()

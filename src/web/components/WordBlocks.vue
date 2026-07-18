@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { parseWord, parsedAnswer, testAnswer, answer as todayAnswer } from '#/state.ts'
-import { WORD_LENGTH } from '#shared/game-constants.ts'
+import { parseWord, parsedAnswer, testAnswer, answer as todayAnswer } from '#/web/state.ts'
+import { WORD_LENGTH } from '#/shared/game-constants.ts'
 
 const props = withDefaults(
   defineProps<{
