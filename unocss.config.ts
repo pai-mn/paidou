@@ -4,8 +4,9 @@ import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss'
 export default defineConfig({
   shortcuts: [
     {
-      'btn': 'px-4 py-1 rounded inline-block bg-primary text-white cursor-pointer tracking-wide op90 hover:op100 disabled:cursor-default disabled:bg-gray-600 disabled:!op50 disabled:pointer-events-none',
-      'icon-btn': 'text-1.2em cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-primary disabled:pointer-events-none',
+      btn: 'px-4 py-1 rounded inline-block bg-primary text-white cursor-pointer tracking-wide op90 hover:op100 disabled:cursor-default disabled:bg-gray-600 disabled:!op50 disabled:pointer-events-none',
+      'icon-btn':
+        'text-1.2em cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-primary disabled:pointer-events-none',
       'square-btn': 'flex flex-gap-2 items-center border border-base px2 py1 relative !outline-none',
       'square-btn-mark': 'absolute h-2 w-2 bg-primary -right-0.2rem -top-0.2rem',
 
@@ -29,10 +30,10 @@ export default defineConfig({
   ],
   theme: <Theme>{
     colors: {
-      'ok': 'var(--c-ok)',
-      'primary': 'var(--c-primary)',
+      ok: 'var(--c-ok)',
+      primary: 'var(--c-primary)',
       'primary-deep': 'var(--c-primary-deep)',
-      'mis': 'var(--c-mis)',
+      mis: 'var(--c-mis)',
     },
   },
   presets: [

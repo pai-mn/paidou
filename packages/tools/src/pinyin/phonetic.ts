@@ -15,10 +15,9 @@ export function getPhoneticPosition(pinyin: string | ParsedPinyin) {
       base.lastIndexOf('u'),
       base.lastIndexOf('v'),
       base.lastIndexOf('ü'),
-    ].find(i => i !== null && i >= 0)
+    ].find((i) => i !== null && i >= 0)
 
-    if (pinyin.phoneticPos == null)
-      throw new Error(`Unable to find phonetic position for ${pinyin.base}`)
+    if (pinyin.phoneticPos == null) throw new Error(`Unable to find phonetic position for ${pinyin.base}`)
   }
 
   return pinyin.phoneticPos

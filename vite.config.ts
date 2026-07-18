@@ -22,10 +22,7 @@ export default defineConfig({
     : [
         Vue(),
         AutoImport({
-          imports: [
-            'vue',
-            '@vueuse/core',
-          ],
+          imports: ['vue', '@vueuse/core'],
           dts: true,
         }),
         Components({
@@ -41,14 +38,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          if (id.includes('locale'))
-            return 'locale'
-          if (id.includes('idioms.txt'))
-            return 'idioms'
-          if (id.includes('polyphones.json'))
-            return 'polyphones'
-          if (id.includes('node_modules') && !id.endsWith('.css'))
-            return 'vendor'
+          if (id.includes('locale')) return 'locale'
+          if (id.includes('idioms.txt')) return 'idioms'
+          if (id.includes('polyphones.json')) return 'polyphones'
+          if (id.includes('node_modules') && !id.endsWith('.css')) return 'vendor'
         },
       },
     },

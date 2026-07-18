@@ -9,15 +9,12 @@ export function parsePinyin(pinyin: string, mode: InputMode = 'py', spMode: SpMo
   if (pinyin) {
     if (mode === 'zy') {
       parts = Array.from(pinyin.trim() ? toZhuyin(pinyin) : '')
-    }
-    else if (mode === 'sp') {
+    } else if (mode === 'sp') {
       parts = Array.from(toShuangpin(pinyin, spMode))
-    }
-    else {
+    } else {
       let rest = pinyin
-      const one = pinyinInitials.find(i => rest.startsWith(i))
-      if (one)
-        rest = rest.slice(one.length)
+      const one = pinyinInitials.find((i) => rest.startsWith(i))
+      if (one) rest = rest.slice(one.length)
       parts = [one, rest].filter(Boolean) as string[]
     }
   }
@@ -25,11 +22,9 @@ export function parsePinyin(pinyin: string, mode: InputMode = 'py', spMode: SpMo
 }
 
 export function parseChar(char: string, pinyin?: string, mode?: InputMode, spMode?: SpMode): ParsedChar {
-  if (!pinyin)
-    pinyin = getPinyin(char)[0]
+  if (!pinyin) pinyin = getPinyin(char)[0]
   const tone = pinyin.match(/[\d]$/)?.[0] || ''
-  if (tone)
-    pinyin = pinyin.slice(0, -tone.length).trim()
+  if (tone) pinyin = pinyin.slice(0, -tone.length).trim()
 
   const parts = parsePinyin(pinyin, mode, spMode)
   // if there is no final, actually it's no intital
@@ -59,8 +54,7 @@ export function parseWord(word: string, answer?: string, mode?: InputMode, spMod
   return chars.map((char, i): ParsedChar => {
     let pinyin = pinyins[i] || ''
     // try match the pinyin from the answer word
-    if (answerPinyin && answer && answer.includes(char))
-      pinyin = answerPinyin[answer.indexOf(char)] || pinyin
+    if (answerPinyin && answer && answer.includes(char)) pinyin = answerPinyin[answer.indexOf(char)] || pinyin
     return parseChar(char, pinyin, mode, spMode)
   })
 }
@@ -68,14 +62,12 @@ export function parseWord(word: string, answer?: string, mode?: InputMode, spMod
 export function testAnswer(input: ParsedChar[], answer: ParsedChar[]) {
   const unmatched = {
     char: answer
-      .map((a, i) => toSimplified(input[i].char) === toSimplified(a.char) ? undefined : toSimplified(a.char))
-      .filter(i => i != null),
-    tone: answer
-      .map((a, i) => input[i].tone === a.tone ? undefined : a.tone)
-      .filter(i => i != null),
+      .map((a, i) => (toSimplified(input[i].char) === toSimplified(a.char) ? undefined : toSimplified(a.char)))
+      .filter((i) => i != null),
+    tone: answer.map((a, i) => (input[i].tone === a.tone ? undefined : a.tone)).filter((i) => i != null),
     parts: answer
-      .flatMap((a, i) => a.parts.filter(p => !input[i].parts.includes(p)))
-      .filter(i => i != null) as string[],
+      .flatMap((a, i) => a.parts.filter((p) => !input[i].parts.includes(p)))
+      .filter((i) => i != null) as string[],
   }
 
   function includesAndRemove<T>(arr: T[], v: T) {
@@ -89,37 +81,37 @@ export function testAnswer(input: ParsedChar[], answer: ParsedChar[]) {
   return input.map((a, i): MatchResult => {
     const char = toSimplified(a.char)
     return {
-      char: answer[i].char === char || answer[i].char === a.char
-        ? 'exact'
-        : includesAndRemove(unmatched.char, char)
-          ? 'misplaced'
-          : 'none',
-      tone: answer[i].tone === a.tone
-        ? 'exact'
-        : includesAndRemove(unmatched.tone, a.tone)
-          ? 'misplaced'
-          : 'none',
-      _1: !a._1 || answer[i].parts.includes(a._1)
-        ? 'exact'
-        : includesAndRemove(unmatched.parts, a._1)
-          ? 'misplaced'
-          : 'none',
-      _2: !a._2 || answer[i].parts.includes(a._2)
-        ? 'exact'
-        : includesAndRemove(unmatched.parts, a._2)
-          ? 'misplaced'
-          : 'none',
-      _3: !a._3 || answer[i].parts.includes(a._3)
-        ? 'exact'
-        : includesAndRemove(unmatched.parts, a._3)
-          ? 'misplaced'
-          : 'none',
+      char:
+        answer[i].char === char || answer[i].char === a.char
+          ? 'exact'
+          : includesAndRemove(unmatched.char, char)
+            ? 'misplaced'
+            : 'none',
+      tone: answer[i].tone === a.tone ? 'exact' : includesAndRemove(unmatched.tone, a.tone) ? 'misplaced' : 'none',
+      _1:
+        !a._1 || answer[i].parts.includes(a._1)
+          ? 'exact'
+          : includesAndRemove(unmatched.parts, a._1)
+            ? 'misplaced'
+            : 'none',
+      _2:
+        !a._2 || answer[i].parts.includes(a._2)
+          ? 'exact'
+          : includesAndRemove(unmatched.parts, a._2)
+            ? 'misplaced'
+            : 'none',
+      _3:
+        !a._3 || answer[i].parts.includes(a._3)
+          ? 'exact'
+          : includesAndRemove(unmatched.parts, a._3)
+            ? 'misplaced'
+            : 'none',
     }
   })
 }
 
 export function checkPass(result: MatchResult[]) {
-  return result.every(r => r.char === 'exact')
+  return result.every((r) => r.char === 'exact')
 }
 
 export function getHint(word: string) {
@@ -130,7 +122,7 @@ const numberChar = ['零', '一', '二', '三', '四', '五', '六', '七', '八
 const tens = ['', '十', '百', '千']
 
 export function numberToHanzi(number: number) {
-  const digits = Array.from(number.toString()).map(i => +i)
+  const digits = Array.from(number.toString()).map((i) => +i)
   const chars = digits.map((i, idx) => {
     const unit = i !== 0 ? tens[digits.length - 1 - idx] : ''
     return numberChar[i] + unit
@@ -145,10 +137,10 @@ export function numberToHanzi(number: number) {
 }
 
 /**
-* Checks whether a given date is in daylight saving time.
-* @param date the date object to be checked.
-* @returns true if the date is in daylight saving time, false if it's not.
-*/
+ * Checks whether a given date is in daylight saving time.
+ * @param date the date object to be checked.
+ * @returns true if the date is in daylight saving time, false if it's not.
+ */
 export function isDstObserved(date: Date) {
   const jan = new Date(date.getFullYear(), 0, 1)
   const jul = new Date(date.getFullYear(), 6, 1)

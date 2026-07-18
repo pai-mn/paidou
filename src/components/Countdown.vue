@@ -2,7 +2,9 @@
 import { now } from '~/state'
 import { t } from '~/i18n'
 import { START_DATE, isDstObserved } from '~/logic'
-const ms = computed(() => 86400000 - ((isDstObserved(now.value) ? +now.value + 3600000 : +now.value) - +START_DATE) % 86400000)
+const ms = computed(
+  () => 86400000 - (((isDstObserved(now.value) ? +now.value + 3600000 : +now.value) - +START_DATE) % 86400000),
+)
 const formatted = computed(() => {
   const h = Math.floor((ms.value % 86400000) / 3600000)
   const m = Math.floor((ms.value % 3600000) / 60000)
@@ -24,7 +26,7 @@ const formatted = computed(() => {
       <div op50 ws-nowrap>
         {{ t('next-note') }}
       </div>
-      <div text-lg ws-nowrap style="font-variant-numeric: tabular-nums;">
+      <div text-lg ws-nowrap style="font-variant-numeric: tabular-nums">
         {{ formatted }}
       </div>
     </div>

@@ -7,7 +7,7 @@ import { getShuangpinMaps } from './constants'
 export function toShuangpin(pinyin: string | ParsedPinyin, spMode: SpMode) {
   pinyin = parsePinyin(pinyin)
   const base = pinyin.base
-  const initial = pinyinInitials.find(i => base.startsWith(i)) || ''
+  const initial = pinyinInitials.find((i) => base.startsWith(i)) || ''
   const final = base.slice(initial.length)
 
   const maps = getShuangpinMaps(spMode)

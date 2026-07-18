@@ -5,8 +5,7 @@ import { t } from '~/i18n'
 const shareType = ref<'text' | 'image' | null>()
 
 watch(showShareDialog, (v) => {
-  if (!v)
-    shareType.value = null
+  if (!v) shareType.value = null
 })
 </script>
 
@@ -25,11 +24,7 @@ watch(showShareDialog, (v) => {
 
     <p text-xl font-serif mb4>
       <b>{{
-        shareType === 'text'
-          ? t('share-with-text')
-          : shareType === 'image'
-            ? t('download-as-image')
-            : t('share')
+        shareType === 'text' ? t('share-with-text') : shareType === 'image' ? t('download-as-image') : t('share')
       }}</b>
     </p>
     <template v-if="!shareType">
@@ -38,16 +33,26 @@ watch(showShareDialog, (v) => {
       </div>
       <div grid="~ cols-2 gap-2" my4>
         <button
-          flex="~ col center" border="~ base" p4 op80 class="hover:op100 hover:bg-gray:5"
-          w-30 h-30
+          flex="~ col center"
+          border="~ base"
+          p4
+          op80
+          class="hover:op100 hover:bg-gray:5"
+          w-30
+          h-30
           @click="shareType = 'text'"
         >
           <div i-ep-tickets text-10 op70 mb1 />
           <div>{{ t('share-with-text') }}</div>
         </button>
         <button
-          flex="~ col center" border="~ base" p4 op80 class="hover:op100 hover:bg-gray:5"
-          w-30 h-30
+          flex="~ col center"
+          border="~ base"
+          p4
+          op80
+          class="hover:op100 hover:bg-gray:5"
+          w-30
+          h-30
           @click="shareType = 'image'"
         >
           <div i-ep-picture text-10 op70 mb1 />

@@ -9,17 +9,15 @@ const props = withDefaults(
     answer?: string
     animate?: boolean
     active?: boolean
-  }>(), {
+  }>(),
+  {
     animate: true,
   },
 )
 
 const result = computed(() => {
   if (props.revealed) {
-    return testAnswer(
-      parseWord(props.word),
-      props.answer ? parseWord(props.answer) : parsedAnswer.value,
-    )
+    return testAnswer(parseWord(props.word), props.answer ? parseWord(props.answer) : parsedAnswer.value)
   }
   return []
 })
@@ -38,9 +36,13 @@ watchEffect(() => {
 <template>
   <div flex>
     <div
-      v-for="c, i in parseWord(word.padEnd(WORD_LENGTH, ' '), answer || todayAnswer.word)" :key="i"
-      w-20 h-20 m1
-      class="tile" :class="[flip ? 'revealed' : '']"
+      v-for="(c, i) in parseWord(word.padEnd(WORD_LENGTH, ' '), answer || todayAnswer.word)"
+      :key="i"
+      w-20
+      h-20
+      m1
+      class="tile"
+      :class="[flip ? 'revealed' : '']"
     >
       <template v-if="animate">
         <CharBlock
@@ -60,11 +62,7 @@ watchEffect(() => {
         />
       </template>
       <template v-else>
-        <CharBlock
-          :char="c"
-          :answer="result[i]"
-          :active="active"
-        />
+        <CharBlock :char="c" :answer="result[i]" :active="active" />
       </template>
     </div>
   </div>

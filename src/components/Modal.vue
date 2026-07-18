@@ -1,13 +1,16 @@
-<script setup lang='ts'>
-const props = withDefaults(defineProps<{
-  modelValue?: boolean
-  direction?: string
-  mask?: boolean
-}>(), {
-  modelValue: false,
-  direction: 'bottom',
-  mask: true,
-})
+<script setup lang="ts">
+const props = withDefaults(
+  defineProps<{
+    modelValue?: boolean
+    direction?: string
+    mask?: boolean
+  }>(),
+  {
+    modelValue: false,
+    direction: 'bottom',
+    mask: true,
+  },
+)
 
 defineEmits<{
   (e: 'update:modelValue', value: boolean): void
@@ -29,8 +32,7 @@ const positionClass = computed(() => {
 })
 
 const containerPositionClass = computed(() => {
-  if (props.mask)
-    return 'bottom-0 left-0 right-0 top-0'
+  if (props.mask) return 'bottom-0 left-0 right-0 top-0'
   switch (props.direction) {
     case 'bottom':
       return 'bottom-0 left-0 right-0'
@@ -62,10 +64,7 @@ const transform = computed(() => {
 </script>
 
 <template>
-  <div
-    fixed z-40
-    :class="[containerPositionClass, modelValue ? '' : 'pointer-events-none']"
-  >
+  <div fixed z-40 :class="[containerPositionClass, modelValue ? '' : 'pointer-events-none']">
     <div
       v-if="mask"
       class="bg-base left-0 right-0 top-0 bottom-0 absolute transition-opacity duration-500 ease-out"

@@ -13,7 +13,7 @@ function variantButton() {
   showVariants.value = true
 }
 
-const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.value]))
+const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' })[inputMode.value])
 </script>
 
 <template>
@@ -38,20 +38,27 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
       <b>{{ t('rule') }}</b>
     </p>
 
-    <p>{{ t('intro-1') }} <b text-ok>{{ t('intro-2') }}</b>。</p>
+    <p>
+      {{ t('intro-1') }} <b text-ok>{{ t('intro-2') }}</b
+      >。
+    </p>
     <p>{{ t('intro-3') }}</p>
     <div h-1px w-10 border="b base" m4 />
 
     <WordBlocks my2 :word="t('example-1')" :revealed="true" answer=" 门  " />
-    <p>{{ t('intro-4') }} <b text-ok>{{ t('intro-5') }}</b> {{ t('intro-6') }}</p>
+    <p>
+      {{ t('intro-4') }} <b text-ok>{{ t('intro-5') }}</b> {{ t('intro-6') }}
+    </p>
 
     <WordBlocks my2 :word="t('example-2')" :revealed="true" answer="一一一水" />
-    <p>{{ t('intro-7') }} <b text-mis>{{ t('intro-8') }}</b> {{ t('intro-9') }}</p>
+    <p>
+      {{ t('intro-7') }} <b text-mis>{{ t('intro-8') }}</b> {{ t('intro-9') }}
+    </p>
 
     <WordBlocks my2 :word="t('example-3')" :revealed="true" answer="桥它拖 " />
     <p max-w-130>
-      {{ t('intro-10') }} <b>{{ t('intro-11') }}</b> {{ t('intro-12') }}
-      {{ t('intro-13') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-15') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-16') }}
+      {{ t('intro-10') }} <b>{{ t('intro-11') }}</b> {{ t('intro-12') }} {{ t('intro-13') }}
+      <b op50>{{ t('intro-14') }}</b> {{ t('intro-15') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-16') }}
       {{ t('intro-17') }} <b text-mis>{{ final }}</b> {{ t('intro-19') }}
     </p>
 
@@ -78,7 +85,8 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
       {{ t('other-variants') }}
     </button>
     <div>
-      <span op40>inspired by </span><a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" op50 hover:op80>Wordle</a>
+      <span op40>inspired by </span
+      ><a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" op50 hover:op80>Wordle</a>
       <span op40>, made by </span>
       <a op50 hover:op80 href="https://twitter.com/antfu7" target="_blank">Anthony</a>
       <span op40> & </span>

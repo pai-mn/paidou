@@ -8,11 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <button
-    square-btn flex-gap-1
-    :class="useMask ? 'text-primary' : hint ? 'op50' : ''" ma
-    @click="useMask = !useMask"
-  >
+  <button square-btn flex-gap-1 :class="useMask ? 'text-primary' : hint ? 'op50' : ''" ma @click="useMask = !useMask">
     <div :i="useMask ? 'carbon-view-off' : 'carbon-view'" />
     {{ useMask ? t('mask-on') : t('mask-off') }}
   </button>

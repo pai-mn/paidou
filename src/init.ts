@@ -6,50 +6,53 @@ import { tryFixAnswer } from './logic/answer-fix'
 
 useTitle(computed(() => `${t('name')} - ${t('description')}`))
 
-if (!initialized.value)
-  showHelp.value = true
+if (!initialized.value) showHelp.value = true
 
 watchEffect(() => {
-  if (isPassed.value)
-    meta.value.passed = true
+  if (isPassed.value) meta.value.passed = true
 })
 
 watch(daySince, (n, o) => {
   // on day changed
-  if (o === dayNo.value && isFinished.value)
-    dayNo.value = n
+  if (o === dayNo.value && isFinished.value) dayNo.value = n
 })
 
-watch([isFinished, meta], () => {
-  if (isFinished.value)
-    markEnd()
+watch(
+  [isFinished, meta],
+  () => {
+    if (isFinished.value) markEnd()
     // sendAnalytics()
-}, { flush: 'post' })
+  },
+  { flush: 'post' },
+)
 
-watch(isFinished, (v) => {
-  if (v)
-    showCheatSheet.value = false
-}, { flush: 'post' })
+watch(
+  isFinished,
+  (v) => {
+    if (v) showCheatSheet.value = false
+  },
+  { flush: 'post' },
+)
 
 const visible = useDocumentVisibility()
 
 let leaveTime = 0
 const REFRESH_TIME = 1000 * 60 * 60 * 3 // 3 hours
-watchEffect(() => {
-  if (visible.value === 'visible') {
-    // left for a long while, refresh the page for updates
-    if (leaveTime && Date.now() - leaveTime > REFRESH_TIME)
-      location.reload()
+watchEffect(
+  () => {
+    if (visible.value === 'visible') {
+      // left for a long while, refresh the page for updates
+      if (leaveTime && Date.now() - leaveTime > REFRESH_TIME) location.reload()
 
-    // restart timer
-    if (meta.value.duration)
-      markStart()
-  }
-  else if (visible.value === 'hidden') {
-    leaveTime = Date.now()
-    pauseTimer()
-  }
-}, { flush: 'post' })
+      // restart timer
+      if (meta.value.duration) markStart()
+    } else if (visible.value === 'hidden') {
+      leaveTime = Date.now()
+      pauseTimer()
+    }
+  },
+  { flush: 'post' },
+)
 
 nextTick(() => {
   // if (acceptCollecting.value)

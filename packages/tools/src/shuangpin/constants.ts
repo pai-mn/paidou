@@ -14,15 +14,17 @@ const shuangpinConstants: Record<SpMode, { initials: string[]; finals: string[] 
   },
   xiaohe: {
     initials: [...shuangpinInitials, 'e'],
-    finals: convertFinalMap(xiaoheMap.finals).map(i => i === 'er' ? 'r' : i),
+    finals: convertFinalMap(xiaoheMap.finals).map((i) => (i === 'er' ? 'r' : i)),
   },
 }
 
 export function getShuangpinMaps(spMode: SpMode): { initials: Record<string, string>; finals: Record<string, string> } {
-  return {
-    sougou: sougouMap,
-    xiaohe: xiaoheMap,
-  }[spMode] ?? sougouMap
+  return (
+    {
+      sougou: sougouMap,
+      xiaohe: xiaoheMap,
+    }[spMode] ?? sougouMap
+  )
 }
 
 export function getShuangpinConstants(spMode: SpMode) {

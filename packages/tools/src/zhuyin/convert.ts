@@ -9,8 +9,7 @@ export function toZhuyin(pinyin: string | ParsedPinyin, renderTone = true) {
 
   const base = (zhuyinMap as any)[pinyin.base] || (zhuyinMap as any)[pinyin.base.replace('v', 'u')]
 
-  if (!base)
-    throw new Error(`Invalid pinyin ${pinyin.base}`)
+  if (!base) throw new Error(`Invalid pinyin ${pinyin.base}`)
 
   const tone = renderTone && pinyin.tone ? toneSymbols[pinyin.tone] : ''
   return base + tone
@@ -27,13 +26,11 @@ export function zhuyinToPinyin(zhuyin: string): ParsedPinyin {
     zhuyin = zhuyin.slice(0, -1)
   }
 
-  if (!toPinyinMap)
-    toPinyinMap = reverseMap(zhuyinMap)
+  if (!toPinyinMap) toPinyinMap = reverseMap(zhuyinMap)
 
   const base = (toPinyinMap as any)[zhuyin]
 
-  if (!base)
-    throw new Error(`Invalid zhuyin ${zhuyin}`)
+  if (!base) throw new Error(`Invalid zhuyin ${zhuyin}`)
 
   return { base, tone }
 }
@@ -43,21 +40,21 @@ if (import.meta.vitest) {
 
   describe('zhuyin', () => {
     it('toZhuyin', () => {
-      expect(getPinyin('你好世界')
-        .map(i => toZhuyin(i))
-        .join(' '),
-      )
-        .toMatchInlineSnapshot('"ㄋㄧˇ ㄏㄠˇ ㄕˋ ㄐㄧㄝˋ"')
+      expect(
+        getPinyin('你好世界')
+          .map((i) => toZhuyin(i))
+          .join(' '),
+      ).toMatchInlineSnapshot('"ㄋㄧˇ ㄏㄠˇ ㄕˋ ㄐㄧㄝˋ"')
     })
 
     it('toPinyin', () => {
-      expect(getPinyin('沒有問題')
-        .map(i => toZhuyin(i))
-        .map(i => zhuyinToPinyin(i))
-        .map(pinyinToNumberStyle)
-        .join(' '),
-      )
-        .toMatchInlineSnapshot('"mei2 you3 wen4 ti2"')
+      expect(
+        getPinyin('沒有問題')
+          .map((i) => toZhuyin(i))
+          .map((i) => zhuyinToPinyin(i))
+          .map(pinyinToNumberStyle)
+          .join(' '),
+      ).toMatchInlineSnapshot('"mei2 you3 wen4 ti2"')
     })
   })
 }

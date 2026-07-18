@@ -2,15 +2,22 @@
 import DashboardItem from './DashboardItem.vue'
 import { t } from '~/i18n'
 import { showDashboard } from '~/state'
-import { averageDurations, gamesCount, history, historyTriesCount, noHintPassedCount, passedCount, passedTries } from '~/storage'
+import {
+  averageDurations,
+  gamesCount,
+  history,
+  historyTriesCount,
+  noHintPassedCount,
+  passedCount,
+  passedTries,
+} from '~/storage'
 import { checkValidIdiom } from '~/logic'
 
 const triesMap = computed(() => {
   const map = new Map<number, number>()
   passedTries.value.forEach((i) => {
     let count = i.tries!.length
-    if (count > 10)
-      count = 10
+    if (count > 10) count = 10
     map.set(count, (map.get(count) || 0) + 1)
   })
   return map
@@ -19,8 +26,7 @@ const triesMap = computed(() => {
 const triesMax = computed(() => {
   let max = 0
   Array.from(triesMap.value.keys()).forEach((i) => {
-    if (i > max)
-      max = i
+    if (i > max) max = i
   })
   return max
 })
@@ -28,8 +34,7 @@ const triesMax = computed(() => {
 const tiresMaxCount = computed(() => {
   let max = 1
   Array.from(triesMap.value.values()).forEach((i) => {
-    if (i > max)
-      max = i
+    if (i > max) max = i
   })
   return max
 })
@@ -38,8 +43,16 @@ function close() {
   showDashboard.value = false
 }
 
-const allWords = computed(() => Array.from(new Set(Object.values(history.value).flatMap(i => i.tries).filter(Boolean) as string[])))
-const validWords = computed(() => allWords.value.filter(i => checkValidIdiom(i, true)))
+const allWords = computed(() =>
+  Array.from(
+    new Set(
+      Object.values(history.value)
+        .flatMap((i) => i.tries)
+        .filter(Boolean) as string[],
+    ),
+  ),
+)
+const validWords = computed(() => allWords.value.filter((i) => checkValidIdiom(i, true)))
 </script>
 
 <template>
@@ -61,7 +74,15 @@ const validWords = computed(() => allWords.value.filter(i => checkValidIdiom(i, 
         <div w-4 flex-none text-right op50>
           {{ i === 10 ? '10+' : i }}
         </div>
-        <div bg-primary h-5 text-white text-right flex justify-end :style="{ width: triesMap.get(i) ? `${triesMap.get(i)! / tiresMaxCount * 100}%` : '1%' }">
+        <div
+          bg-primary
+          h-5
+          text-white
+          text-right
+          flex
+          justify-end
+          :style="{ width: triesMap.get(i) ? `${(triesMap.get(i)! / tiresMaxCount) * 100}%` : '1%' }"
+        >
           <div text-sm mya mr1>
             {{ triesMap.get(i) }}
           </div>
@@ -72,11 +93,14 @@ const validWords = computed(() => allWords.value.filter(i => checkValidIdiom(i, 
       <DashboardItem :value="gamesCount" :text="t('games-count')" />
       <DashboardItem :value="passedCount" :text="t('win-count')" />
       <DashboardItem :value="noHintPassedCount" :text="t('win-no-hint-count')" />
-      <DashboardItem :value="`${Math.round(passedCount / gamesCount * 100)}%`" :text="t('win-rate')" />
+      <DashboardItem :value="`${Math.round((passedCount / gamesCount) * 100)}%`" :text="t('win-rate')" />
     </div>
     <div flex="~ wrap gap-4" justify-center min-w-100px py2>
       <DashboardItem :value="allWords.length" :text="t('used-words')" />
-      <DashboardItem :value="`${Math.round(validWords.length / allWords.length * 100)}%`" :text="t('valid-words-rate')" />
+      <DashboardItem
+        :value="`${Math.round((validWords.length / allWords.length) * 100)}%`"
+        :text="t('valid-words-rate')"
+      />
     </div>
     <div flex="~ wrap gap-4" justify-center min-w-100px py2>
       <DashboardItem :value="(historyTriesCount / gamesCount).toFixed(1)" :text="t('average-tries-count')" />

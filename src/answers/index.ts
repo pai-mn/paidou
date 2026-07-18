@@ -8,8 +8,7 @@ export function getAnswerOfDay(day: number) {
   if (day >= answers.length) {
     const seed = seedrandom(`day-${day}`)()
     answer = answers[Math.floor(seed * answers.length)]
-  }
-  else {
+  } else {
     answer = answers[day]
   }
   const [word = '', hint = ''] = answer
