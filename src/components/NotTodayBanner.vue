@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { dayNo, daySince } from '~/state'
-import { t } from '~/i18n'
+import { dayNo, daySince } from '#/state.ts'
+import { t } from '#/i18n.ts'
 
 const delta = computed(() => dayNo.value - daySince.value)
 </script>

@@ -1,6 +1,10 @@
 {
   "type": "module",
   "private": true,
+  "imports": {
+    "#/*": "./src/*",
+    "#tools/*": "./tools/*"
+  },
   "packageManager": "bun@1.3.13",
   "engines": {
     "bun": ">=1.3.13",

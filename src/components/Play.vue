@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { filterNonChineseChars } from '@hankit/tools'
-import { answer, dayNo, isDev, isFailed, isFinished, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
-import { markStart, meta, tries, useNoHint, useStrictMode } from '~/storage'
-import { t } from '~/i18n'
-import { TRIES_LIMIT, WORD_LENGTH, checkValidIdiom } from '~/logic'
+import { answer, dayNo, isDev, isFailed, isFinished, showCheatSheet, showFailed, showHelp, showHint } from '#/state.ts'
+import { markStart, meta, tries, useNoHint, useStrictMode } from '#/storage.ts'
+import { t } from '#/i18n.ts'
+import { TRIES_LIMIT, WORD_LENGTH, checkValidIdiom } from '#/logic/index.ts'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')

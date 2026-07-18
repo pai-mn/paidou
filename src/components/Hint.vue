@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { answer, dayNoHanzi, hint, parseWord } from '~/state'
-import { meta } from '~/storage'
-import { t } from '~/i18n'
+import { answer, dayNoHanzi, hint, parseWord } from '#/state.ts'
+import { meta } from '#/storage.ts'
+import { t } from '#/i18n.ts'
 
 const parsed = computed(() => parseWord(hint.value, answer.value.word)[0])
 const masked = computed(() => ({

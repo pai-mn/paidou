@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import '~/init'
-import { answer, dayNo, daySince, isDev } from '~/state'
-import { colorblind } from '~/storage'
-import { DAYS_PLAY_BACK } from '~/logic/constants'
+import '#/init.ts'
+import { answer, dayNo, daySince, isDev } from '#/state.ts'
+import { colorblind } from '#/storage.ts'
+import { DAYS_PLAY_BACK } from '#/logic/constants.ts'
 
 const { height } = useWindowSize()
 

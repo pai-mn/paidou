@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { showShareDialog } from '~/state'
-import { t } from '~/i18n'
+import { showShareDialog } from '#/state.ts'
+import { t } from '#/i18n.ts'
 
 const shareType = ref<'text' | 'image' | null>()
 

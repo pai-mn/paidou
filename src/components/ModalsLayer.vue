@@ -9,7 +9,7 @@ import {
   showSettings,
   showShareDialog,
   showVariants,
-} from '~/state'
+} from '#/state.ts'
 
 const lg = breakpoints.lg
 </script>

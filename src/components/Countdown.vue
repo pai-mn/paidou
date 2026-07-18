@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { now } from '~/state'
-import { t } from '~/i18n'
-import { START_DATE, isDstObserved } from '~/logic'
+import { now } from '#/state.ts'
+import { t } from '#/i18n.ts'
+import { START_DATE, isDstObserved } from '#/logic/index.ts'
 const ms = computed(
   () => 86400000 - (((isDstObserved(now.value) ? +now.value + 3600000 : +now.value) - +START_DATE) % 86400000),
 )

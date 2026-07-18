@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import DashboardItem from './DashboardItem.vue'
-import { t } from '~/i18n'
-import { showDashboard } from '~/state'
+import DashboardItem from '#/components/DashboardItem.vue'
+import { t } from '#/i18n.ts'
+import { showDashboard } from '#/state.ts'
 import {
   averageDurations,
   gamesCount,
@@ -10,8 +10,8 @@ import {
   noHintPassedCount,
   passedCount,
   passedTries,
-} from '~/storage'
-import { checkValidIdiom } from '~/logic'
+} from '#/storage.ts'
+import { checkValidIdiom } from '#/logic/index.ts'
 
 const triesMap = computed(() => {
   const map = new Map<number, number>()

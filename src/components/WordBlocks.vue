@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { parseWord, parsedAnswer, testAnswer, answer as todayAnswer } from '~/state'
-import { WORD_LENGTH } from '~/logic'
+import { parseWord, parsedAnswer, testAnswer, answer as todayAnswer } from '#/state.ts'
+import { WORD_LENGTH } from '#/logic/index.ts'
 
 const props = withDefaults(
   defineProps<{

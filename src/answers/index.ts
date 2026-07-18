@@ -1,6 +1,6 @@
 import seedrandom from 'seedrandom'
-import { getHint } from '../logic'
-import { answers } from './list'
+import { getHint } from '#/logic/index.ts'
+import { answers } from '#/answers/list.ts'
 
 export function getAnswerOfDay(day: number) {
   let answer: string[]

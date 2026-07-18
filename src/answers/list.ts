@@ -41,7 +41,7 @@
  *
  */
 
-import { seedShuffle } from './utils'
+import { seedShuffle } from '#/answers/utils.ts'
 
 function prepare<T>(len: number, arr: T[]) {
   if (import.meta.hot && arr.length !== len) throw new Error(`expect array length ${arr.length} to be ${len}`)
@@ -614,7 +614,7 @@ export const answers: string[][] = [
 
 // duplicated check
 if (import.meta.hot) {
-  const { checkValidIdiom } = await import('../logic')
+  const { checkValidIdiom } = await import('#/logic/index.ts')
   const map = new Map<string, number>()
   answers.forEach((a, i) => {
     if (!a[0]) return

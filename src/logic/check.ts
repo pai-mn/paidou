@@ -1,5 +1,5 @@
-import { WORD_LENGTH } from './constants'
-import { getIdiom } from './idioms'
+import { WORD_LENGTH } from '#/logic/constants.ts'
+import { getIdiom } from '#/logic/idioms.ts'
 
 export function filterNonChineseChars(input: string) {
   return Array.from(input)

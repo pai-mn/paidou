@@ -2,9 +2,9 @@ import fs from 'fs'
 import c from 'ansis'
 import { toZhuyin } from '@hankit/tools'
 import { pinyin } from 'pinyin'
-import _polyphones from '../src/data/polyphones.json'
-import { normalizePinyin } from './utils'
-import { getWordInfoFromZDict } from './zdict'
+import _polyphones from '#/data/polyphones.json'
+import { normalizePinyin } from '#tools/utils.ts'
+import { getWordInfoFromZDict } from '#tools/zdict.ts'
 
 const polyphones = _polyphones as Record<string, string>
 const idioms = new Set(

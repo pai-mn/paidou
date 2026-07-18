@@ -8,9 +8,9 @@ import {
   useNoHint,
   useNumberTone as useNumberToneRaw,
   useStrictMode,
-} from '~/storage'
-import { useNumberTone } from '~/state'
-import { locale, t } from '~/i18n'
+} from '#/storage.ts'
+import { useNumberTone } from '#/state.ts'
+import { locale, t } from '#/i18n.ts'
 
 defineProps<{
   lite?: boolean

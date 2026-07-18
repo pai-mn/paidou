@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import confetti from 'canvas-confetti'
-import { isPassed } from '~/state'
+import { isPassed } from '#/state.ts'
 
 function congrats() {
   const defaults = {

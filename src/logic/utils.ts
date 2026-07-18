@@ -1,8 +1,8 @@
 import seedrandom from 'seedrandom'
 import type { SpMode } from '@hankit/tools'
 import { pinyinInitials, toShuangpin, toSimplified, toZhuyin } from '@hankit/tools'
-import type { InputMode, MatchResult, ParsedChar } from './types'
-import { getPinyin } from './idioms'
+import type { InputMode, MatchResult, ParsedChar } from '#/logic/types.ts'
+import { getPinyin } from '#/logic/idioms.ts'
 
 export function parsePinyin(pinyin: string, mode: InputMode = 'py', spMode: SpMode = 'sougou') {
   let parts: string[] = []

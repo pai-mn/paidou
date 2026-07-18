@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { toPng } from 'html-to-image'
 import { saveAs } from 'file-saver'
-import { dayNoHanzi, isIOS, isMobile, useMask } from '~/state'
-import { tries } from '~/storage'
-import { t } from '~/i18n'
+import { dayNoHanzi, isIOS, isMobile, useMask } from '#/state.ts'
+import { tries } from '#/storage.ts'
+import { t } from '#/i18n.ts'
 
 const el = ref<HTMLDivElement>()
 const show = ref(false)

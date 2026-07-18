@@ -1,5 +1,5 @@
 import { breakpointsTailwind } from '@vueuse/core'
-import type { MatchType, ParsedChar } from './logic'
+import type { MatchType, ParsedChar } from '#/logic/index.ts'
 import {
   START_DATE,
   TRIES_LIMIT,
@@ -10,9 +10,9 @@ import {
   getHint,
   isDstObserved,
   numberToHanzi,
-} from './logic'
-import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from './storage'
-import { getAnswerOfDay } from './answers'
+} from '#/logic/index.ts'
+import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from '#/storage.ts'
+import { getAnswerOfDay } from '#/answers/index.ts'
 
 export const isIOS =
   /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)

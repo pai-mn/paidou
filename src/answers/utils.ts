@@ -1,5 +1,5 @@
 import seedrandom from 'seedrandom'
-import { RANDOM_SEED } from '../logic/constants'
+import { RANDOM_SEED } from '#/logic/constants.ts'
 
 export function seedShuffle<T>(array: T[], seed = RANDOM_SEED): T[] {
   const rng = seedrandom(seed)

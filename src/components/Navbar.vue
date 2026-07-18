@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { isDark, showDashboard, showHelp, showSettings, useMask } from '~/state'
-import { gamesCount } from '~/storage'
+import { isDark, showDashboard, showHelp, showSettings, useMask } from '#/state.ts'
+import { gamesCount } from '#/storage.ts'
 
 const toggleDark = useToggle(isDark)
 const toggleSettings = useToggle(showSettings)

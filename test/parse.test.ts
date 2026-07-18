@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { parseChar, parseWord, testAnswer } from '../src/logic'
+import { parseChar, parseWord, testAnswer } from '#/logic/index.ts'
 
 it('parseChar', () => {
   expect(parseChar('虎')).toMatchSnapshot()

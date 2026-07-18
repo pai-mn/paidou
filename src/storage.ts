@@ -1,7 +1,7 @@
 import type { SpMode } from '@hankit/tools'
-import { preferZhuyin, t } from './i18n'
-import { dayNo } from './state'
-import type { InputMode, TriesMeta } from './logic'
+import { preferZhuyin, t } from '#/i18n.ts'
+import { dayNo } from '#/state.ts'
+import type { InputMode, TriesMeta } from '#/logic/index.ts'
 
 export const legacyTries = useStorage<Record<number, string[]>>('handle-tries', {})
 

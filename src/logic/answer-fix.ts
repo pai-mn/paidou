@@ -1,6 +1,6 @@
-import { TRIES_LIMIT } from './constants'
-import { history } from '~/storage'
-import { getAnswerOfDay } from '~/answers'
+import { TRIES_LIMIT } from '#/logic/constants.ts'
+import { history } from '#/storage.ts'
+import { getAnswerOfDay } from '#/answers/index.ts'
 
 export function tryFixAnswer(day: number) {
   const meta = history.value[day]

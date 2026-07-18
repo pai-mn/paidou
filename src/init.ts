@@ -1,8 +1,8 @@
-import { initialized, markEnd, markStart, meta, pauseTimer } from './storage'
-import { answer, dayNo, daySince, isDev, isFinished, isPassed, showCheatSheet, showHelp } from './state'
-import { t } from './i18n'
-import { START_DATE } from './logic/constants'
-import { tryFixAnswer } from './logic/answer-fix'
+import { initialized, markEnd, markStart, meta, pauseTimer } from '#/storage.ts'
+import { answer, dayNo, daySince, isDev, isFinished, isPassed, showCheatSheet, showHelp } from '#/state.ts'
+import { t } from '#/i18n.ts'
+import { START_DATE } from '#/logic/constants.ts'
+import { tryFixAnswer } from '#/logic/answer-fix.ts'
 
 useTitle(computed(() => `${t('name')} - ${t('description')}`))
 

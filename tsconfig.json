@@ -8,13 +8,15 @@
     "incremental": false,
     "skipLibCheck": true,
     "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "types": ["vite/client", "vitest/importMeta"],
     "paths": {
-      "~/*": ["./src/*"],
+      "#/*": ["./src/*"],
+      "#tools/*": ["./tools/*"],
       "@hankit/tools": ["./packages/tools/src/index.ts"]
     }
   },
