@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-  breakpoints,
   showCheatSheet,
   showDashboard,
   showFailed,
@@ -9,34 +8,33 @@ import {
   showSettings,
   showShareDialog,
   showVariants,
-} from '#/state.ts'
-
-const lg = breakpoints.lg
+} from '#/modal-state.ts'
+import { t } from '#/i18n.ts'
 </script>
 
 <template>
-  <Modal v-model="showCheatSheet" :direction="lg ? 'right' : 'top'" :mask="!lg">
+  <Modal v-model="showCheatSheet" :label="t('cheatsheet')">
     <CheatSheet />
   </Modal>
-  <Modal v-model="showSettings" direction="top">
+  <Modal v-model="showSettings" :label="t('settings')">
     <Settings my6 />
   </Modal>
-  <Modal v-model="showHint" direction="top">
+  <Modal v-model="showHint" :label="t('hint')">
     <Hint />
   </Modal>
-  <Modal v-model="showFailed" direction="top">
+  <Modal v-model="showFailed" :label="t('view-answer')">
     <FailedPage />
   </Modal>
-  <Modal v-model="showDashboard" direction="top">
+  <Modal v-model="showDashboard" :label="t('dashboard')">
     <Dashboard />
   </Modal>
-  <Modal v-model="showShareDialog" direction="top">
+  <Modal v-model="showShareDialog" :label="t('share')">
     <ShareDialog />
   </Modal>
-  <Modal v-model="showHelp" direction="top">
+  <Modal v-model="showHelp" :label="t('rule')">
     <WelcomePage />
   </Modal>
-  <Modal v-model="showVariants" direction="top">
+  <Modal v-model="showVariants" :label="t('other-variants')">
     <VariantLinks />
   </Modal>
 </template>

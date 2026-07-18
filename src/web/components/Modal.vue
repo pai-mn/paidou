@@ -1,82 +1,71 @@
 <script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    modelValue?: boolean
-    direction?: string
-    mask?: boolean
-  }>(),
-  {
-    modelValue: false,
-    direction: 'bottom',
-    mask: true,
-  },
-)
+import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, VisuallyHidden } from 'reka-ui'
 
-defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
+defineProps<{
+  label: string
+  modelValue?: boolean
 }>()
 
-const positionClass = computed(() => {
-  switch (props.direction) {
-    case 'bottom':
-      return 'bottom-0 left-0 right-0 border-t'
-    case 'top':
-      return 'top-0 left-0 right-0 border-b'
-    case 'left':
-      return 'bottom-0 left-0 top-0 border-r w-max'
-    case 'right':
-      return 'bottom-0 top-0 right-0 border-l w-max'
-    default:
-      return ''
-  }
-})
-
-const containerPositionClass = computed(() => {
-  if (props.mask) return 'bottom-0 left-0 right-0 top-0'
-  switch (props.direction) {
-    case 'bottom':
-      return 'bottom-0 left-0 right-0'
-    case 'top':
-      return 'top-0 left-0 right-0'
-    case 'left':
-      return 'bottom-0 left-0 top-0'
-    case 'right':
-      return 'bottom-0 top-0 right-0'
-    default:
-      return ''
-  }
-})
-
-const transform = computed(() => {
-  switch (props.direction) {
-    case 'bottom':
-      return 'translateY(100%)'
-    case 'top':
-      return 'translateY(-100%)'
-    case 'left':
-      return 'translateX(-100%)'
-    case 'right':
-      return 'translateX(100%)'
-    default:
-      return ''
-  }
-})
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+}>()
 </script>
 
 <template>
-  <div fixed z-40 :class="[containerPositionClass, modelValue ? '' : 'pointer-events-none']">
-    <div
-      v-if="mask"
-      class="bg-base left-0 right-0 top-0 bottom-0 absolute transition-opacity duration-500 ease-out"
-      :class="modelValue ? 'opacity-50' : 'opacity-0'"
-      @click="$emit('update:modelValue', false)"
-    />
-    <div
-      class="bg-base border-base absolute transition-all duration-200 ease-out max-w-screen max-h-screen overflow-auto scrolls"
-      :class="[positionClass]"
-      :style="modelValue ? {} : { transform }"
-    >
-      <slot />
-    </div>
-  </div>
+  <DialogRoot :open="modelValue" @update:open="emit('update:modelValue', $event)">
+    <DialogPortal>
+      <DialogOverlay class="modal-mask bg-base fixed inset-0 z-40 opacity-50" />
+      <DialogContent
+        aria-describedby="undefined"
+        class="modal-panel bg-base border-base fixed z-40 overflow-auto scrolls"
+        @close-auto-focus="$event.preventDefault()"
+      >
+        <VisuallyHidden>
+          <DialogTitle>{{ label }}</DialogTitle>
+        </VisuallyHidden>
+        <slot />
+      </DialogContent>
+    </DialogPortal>
+  </DialogRoot>
 </template>
+
+<style scoped>
+.modal-panel {
+  --modal-gutter: clamp(0rem, calc(4vw - 1rem), 2rem);
+  --modal-top: clamp(0rem, calc(9vw - 2.2rem), 4.5rem);
+  top: var(--modal-top);
+  left: 50%;
+  width: min(calc(100% - var(--modal-gutter) * 2), 46rem);
+  max-height: calc(var(--vh, 1vh) * 100 - var(--modal-top) - var(--modal-gutter));
+  border-bottom: 1px solid rgba(156, 163, 175, 0.2);
+  transform: translateX(-50%);
+}
+
+.modal-mask[data-state='open'] {
+  animation: modal-mask-in 0.2s ease-out;
+}
+
+.modal-panel[data-state='open'] {
+  animation: modal-panel-in 0.2s ease-out;
+}
+
+@keyframes modal-mask-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+}
+
+@media (min-width: 768px) {
+  .modal-panel {
+    border: 1px solid rgba(156, 163, 175, 0.2);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  }
+}
+</style>

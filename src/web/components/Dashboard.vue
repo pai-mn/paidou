@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { validateIdioms } from '#/api/idioms.ts'
 import DashboardItem from '#/components/DashboardItem.vue'
 import { t } from '#/i18n.ts'
-import { showDashboard } from '#/state.ts'
+import { showDashboard } from '#/modal-state.ts'
 import {
   averageDurations,
   gamesCount,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { showShareDialog } from '#/state.ts'
+import { showShareDialog } from '#/modal-state.ts'
 import { t } from '#/i18n.ts'
 
 function open() {

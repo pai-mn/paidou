@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { showFailed } from '#/state.ts'
+import { showFailed } from '#/modal-state.ts'
 import { meta } from '#/storage.ts'
 import { t } from '#/i18n.ts'
 

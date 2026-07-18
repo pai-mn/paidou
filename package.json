@@ -31,9 +31,10 @@
     "@tanstack/vue-query": "5.101.2",
     "@vueuse/core": "14.3.0",
     "canvas-confetti": "1.9.4",
-    "html-to-image": "1.11.13",
     "hono": "4.12.30",
+    "html-to-image": "1.11.13",
     "pinyin-pro": "3.28.1",
+    "reka-ui": "2.10.1",
     "seedrandom": "3.0.5",
     "vue": "3.5.40"
   },

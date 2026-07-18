@@ -34,7 +34,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div flex>
+  <div class="word-row" flex>
     <div
       v-for="(c, i) in parseWord(word.padEnd(WORD_LENGTH, ' '), answer || todayAnswer.word)"
       :key="i"
@@ -69,9 +69,15 @@ watchEffect(() => {
 </template>
 
 <style scoped>
+.word-row {
+  --tile-size: 5rem;
+}
+
 .tile {
   user-select: none;
   position: relative;
+  width: var(--tile-size);
+  height: var(--tile-size);
 }
 .tile .front,
 .tile .back {
@@ -90,5 +96,11 @@ watchEffect(() => {
 }
 .tile.revealed .back {
   transform: rotateY(0deg);
+}
+
+@media (min-width: 768px) {
+  .word-row {
+    --tile-size: clamp(5rem, 9.375vw, 6rem);
+  }
 }
 </style>

@@ -74,7 +74,7 @@ const partTwo = computed(() => {
 </script>
 
 <template>
-  <div h-20 w-20 border-2 flex="~ center" relative leading-1em font-serif :class="blockColor">
+  <div class="char-block" h-20 w-20 border-2 flex="~ center" relative leading-1em font-serif :class="blockColor">
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
       <template v-if="inputMode === 'zy'">
@@ -163,3 +163,10 @@ const partTwo = computed(() => {
     </template>
   </div>
 </template>
+
+<style scoped>
+.char-block {
+  width: var(--tile-size, 5rem);
+  height: var(--tile-size, 5rem);
+}
+</style>

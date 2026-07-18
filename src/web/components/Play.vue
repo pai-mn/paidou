@@ -2,7 +2,8 @@
 import { useMutation } from '@tanstack/vue-query'
 import { filterNonChineseChars } from '@hankit/tools'
 import { validateIdioms } from '#/api/idioms.ts'
-import { answer, dayNo, isDev, isFailed, isFinished, showCheatSheet, showFailed, showHelp, showHint } from '#/state.ts'
+import { hasOpenModal, showCheatSheet, showFailed, showHint } from '#/modal-state.ts'
+import { answer, dayNo, isDev, isFailed, isFinished } from '#/state.ts'
 import { markStart, meta, tries, useNoHint, useStrictMode } from '#/storage.ts'
 import { t } from '#/i18n.ts'
 import { TRIES_LIMIT, WORD_LENGTH } from '#shared/game-constants.ts'
@@ -55,8 +56,16 @@ function sheet() {
   showCheatSheet.value = !showCheatSheet.value
 }
 
-watchEffect(() => {
-  if (!showHelp.value) focus()
+onMounted(() => {
+  if (!hasOpenModal.value) focus()
+})
+
+watch(hasOpenModal, async (open) => {
+  if (open) return
+  await nextTick()
+  requestAnimationFrame(() => {
+    if (document.activeElement === document.body) focus()
+  })
 })
 
 watchEffect(() => {
@@ -71,7 +80,7 @@ watchEffect(() => {
 
 <template>
   <div>
-    <div flex="~ col" pt4 items-center>
+    <div class="play-board" flex="~ col" pt4 items-center>
       <WordBlocks v-for="(w, i) of tries" :key="i" :word="w" :revealed="true" @click="focus()" />
 
       <template v-if="meta.answer">
@@ -89,11 +98,12 @@ watchEffect(() => {
 
       <Transition name="fade-out">
         <div v-if="!isFinished" flex="~ col gap-2" items-center>
-          <div relative border="2 base rounded-0">
+          <div class="guess-input" relative border="2 base rounded-0">
             <input
               ref="el"
               v-model="inputValue"
               bg-transparent
+              class="guess-input-field"
               w-86
               p3
               outline-none
@@ -173,3 +183,23 @@ watchEffect(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+@media (min-width: 768px) {
+  .play-board {
+    --game-width: clamp(21.5rem, calc(37.5vw + 1.5rem), 25.5rem);
+    width: min(100%, 32rem);
+    margin: 0 auto;
+    padding-top: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .guess-input,
+  .guess-input-field {
+    width: var(--game-width) !important;
+  }
+
+  .guess-input-field {
+    min-height: clamp(3rem, 5.47vw, 3.5rem);
+  }
+}
+</style>

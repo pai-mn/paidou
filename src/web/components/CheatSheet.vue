@@ -2,7 +2,8 @@
 import { getShuangpinConstants, pinyinFinals, pinyinInitials, zhuyinSymbols } from '@hankit/tools'
 import { inputMode, spMode } from '#/storage.ts'
 import { t } from '#/i18n.ts'
-import { getSymbolState, showCheatSheet } from '#/state.ts'
+import { showCheatSheet } from '#/modal-state.ts'
+import { getSymbolState } from '#/state.ts'
 
 function getSymbolClass(symbol: string, key?: '_1' | '_2') {
   const state = getSymbolState(symbol, key)

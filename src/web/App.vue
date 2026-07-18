@@ -16,7 +16,7 @@ watchEffect(() => {
   <main font-sans text="center gray-700 dark:gray-300" select-none :class="{ colorblind }">
     <NotTodayBanner v-if="dayNo < daySince" />
     <Navbar />
-    <div p="4">
+    <div class="game-stage" p="4">
       <div v-if="isAnswerLoading" />
       <NoQuizToday v-else-if="!answer.word" />
       <NoFuturePlay v-else-if="dayNo > daySince && !isDev" />
@@ -27,3 +27,13 @@ watchEffect(() => {
     <Confetti />
   </main>
 </template>
+
+<style scoped>
+@media (min-width: 768px) {
+  .game-stage {
+    width: min(100%, 48rem);
+    margin: 0 auto;
+    padding-top: clamp(1rem, 3vw, 2rem);
+  }
+}
+</style>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { isDark, showHelp, showVariants, useMask } from '#/state.ts'
+import { showHelp, showVariants } from '#/modal-state.ts'
+import { isDark, useMask } from '#/state.ts'
 import { initialized, inputMode } from '#/storage.ts'
 import { t } from '#/i18n.ts'
 

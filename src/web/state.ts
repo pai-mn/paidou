@@ -1,4 +1,3 @@
-import { breakpointsTailwind } from '@vueuse/core'
 import { useQuery } from '@tanstack/vue-query'
 import { fetchDailyGame } from '#/api/game.ts'
 import type { DailyGame } from '#shared/api-types.ts'
@@ -17,19 +16,8 @@ import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from 
 export const isIOS =
   /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
 export const isMobile = isIOS || /iPad|iPhone|iPod|Android|Phone|webOS/i.test(navigator.userAgent)
-export const breakpoints = useBreakpoints(breakpointsTailwind)
-
 export const now = useNow({ interval: 1000 })
 export const isDark = useDark()
-export const showHint = ref(false)
-export const showSettings = ref(false)
-export const showHelp = ref(false)
-export const showShare = ref(false)
-export const showFailed = ref(false)
-export const showDashboard = ref(false)
-export const showVariants = ref(false)
-export const showCheatSheet = ref(false)
-export const showShareDialog = ref(false)
 export const useMask = ref(false)
 
 export const useNumberTone = computed(() => {

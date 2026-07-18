@@ -1,5 +1,6 @@
 import { initialized, markEnd, markStart, meta, pauseTimer } from '#/storage.ts'
-import { answer, dayNo, daySince, isDev, isFinished, isPassed, showCheatSheet, showHelp } from '#/state.ts'
+import { showCheatSheet, showHelp } from '#/modal-state.ts'
+import { answer, dayNo, daySince, isDev, isFinished, isPassed } from '#/state.ts'
 import { t } from '#/i18n.ts'
 import { START_DATE } from '#shared/game-constants.ts'
 import { tryFixAnswer } from '#/logic/answer-fix.ts'
