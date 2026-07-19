@@ -47,12 +47,16 @@ describe('answer hints', () => {
 
 describe('Beijing game date', () => {
   it('changes at midnight in Asia/Shanghai', () => {
-    const beforeMidnight = getBeijingGameDate(new Date('2026-07-18T15:59:59.999Z'))
-    const atMidnight = getBeijingGameDate(new Date('2026-07-18T16:00:00.000Z'))
+    const beforeMidnight = getBeijingGameDate(new Date('2026-07-19T15:59:59.999Z'))
+    const atMidnight = getBeijingGameDate(new Date('2026-07-19T16:00:00.000Z'))
 
-    expect(beforeMidnight.date).toBe('2026-07-18')
-    expect(atMidnight.date).toBe('2026-07-19')
+    expect(beforeMidnight.date).toBe('2026-07-19')
+    expect(atMidnight.date).toBe('2026-07-20')
     expect(atMidnight.day).toBe(beforeMidnight.day + 1)
-    expect(beforeMidnight.nextGameAt).toBe('2026-07-18T16:00:00.000Z')
+    expect(beforeMidnight.nextGameAt).toBe('2026-07-19T16:00:00.000Z')
+  })
+
+  it('numbers the Paidou launch date as day one', () => {
+    expect(getBeijingGameDate(new Date('2026-07-18T16:00:00.000Z'))).toMatchObject({ date: '2026-07-19', day: 1 })
   })
 })

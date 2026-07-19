@@ -6,7 +6,7 @@ afterEach(() => vi.useRealTimers())
 describe('game API', () => {
   it('returns a structured daily game', async () => {
     vi.useFakeTimers()
-    vi.setSystemTime(new Date('2026-07-18T08:00:00.000Z'))
+    vi.setSystemTime(new Date('2026-07-19T08:00:00.000Z'))
 
     const response = await app.request('/api/game')
     const payload = await response.json()
@@ -15,10 +15,10 @@ describe('game API', () => {
     expect(response.headers.get('Cache-Control')).toBe('no-store')
     expect(payload).toMatchObject({
       data: {
-        day: 1660,
-        date: '2026-07-18',
-        nextGameAt: '2026-07-18T16:00:00.000Z',
-        serverTime: '2026-07-18T08:00:00.000Z',
+        day: 1,
+        date: '2026-07-19',
+        nextGameAt: '2026-07-19T16:00:00.000Z',
+        serverTime: '2026-07-19T08:00:00.000Z',
         answer: {
           word: expect.stringMatching(/^.{4}$/u),
           hint: expect.any(String),

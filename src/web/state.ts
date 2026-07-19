@@ -24,7 +24,7 @@ export const isDev = Boolean(import.meta.hot)
 const remoteGame = shallowRef<Readonly<Ref<DailyGame | undefined>>>()
 const remoteGamePending = shallowRef<Readonly<Ref<boolean>>>()
 export const dayNo = computed(() => remoteGame.value?.value?.day ?? 0)
-export const dayNoHanzi = computed(() => `${numberToHanzi(dayNo.value)}日`)
+export const dayNoHanzi = computed(() => `第${numberToHanzi(dayNo.value)}日`)
 export const gameDate = computed(() => remoteGame.value?.value?.date ?? '')
 export const nextGameAt = computed(() => remoteGame.value?.value?.nextGameAt ?? '')
 export const serverClockOffset = computed(() => {
