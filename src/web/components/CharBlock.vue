@@ -76,7 +76,7 @@ const partTwo = computed(() => {
 <template>
   <div
     :class="blockColor"
-    class="char-block h-20 w-20 border-2 flex items-center justify-center relative leading-[1em] font-serif"
+    class="char-block border-2 flex items-center justify-center relative leading-[1em] font-serif"
   >
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
@@ -156,7 +156,7 @@ const partTwo = computed(() => {
 
 <style scoped>
 .char-block {
-  width: var(--tile-size, 5rem);
-  height: var(--tile-size, 5rem);
+  width: var(--game-tile-size);
+  height: var(--game-tile-size);
 }
 </style>

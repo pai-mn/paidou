@@ -105,7 +105,7 @@ watchEffect(() => {
               :disabled="isFinished || validation.isPending.value"
               @input="handleInput"
               @keydown.enter="enter"
-              class="bg-transparent guess-input-field w-[21.5rem] p-3 outline-none text-center"
+              class="bg-transparent guess-input-field p-3 outline-none text-center"
             />
           </div>
           <button
@@ -162,21 +162,19 @@ watchEffect(() => {
 </template>
 
 <style scoped>
+.guess-input {
+  width: var(--game-board-width);
+}
+
+.guess-input-field {
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .play-board {
-    --game-width: clamp(21.5rem, calc(37.5vw + 1.5rem), 25.5rem);
     width: min(100%, 32rem);
     margin: 0 auto;
     padding-top: clamp(1rem, 2vw, 1.5rem);
-  }
-
-  .guess-input,
-  .guess-input-field {
-    width: var(--game-width) !important;
-  }
-
-  .guess-input-field {
-    min-height: clamp(3rem, 5.47vw, 3.5rem);
   }
 }
 </style>

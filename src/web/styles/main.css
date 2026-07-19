@@ -11,7 +11,6 @@
   --color-ok: var(--c-ok);
   --color-mis: var(--c-mis);
   --spacing-90: 22.5rem;
-  --spacing-86: 21.5rem;
   --spacing-80: 20rem;
   --spacing-50: 12.5rem;
   --spacing-30: 7.5rem;
@@ -22,11 +21,17 @@
 }
 
 :root {
+  --game-tile-size: 5rem;
+  --game-tile-gap: 0.5rem;
+  --game-board-width: calc(
+    var(--game-tile-size) + var(--game-tile-size) + var(--game-tile-size) + var(--game-tile-size) +
+      var(--game-tile-gap) + var(--game-tile-gap) + var(--game-tile-gap)
+  );
   --c-bg: #ffffff;
   --c-surface: #ffffff;
   --c-text: #3b4354;
   --c-text-muted: #737d8f;
-  --c-border: rgb(181 157 108 / 28%);
+  --c-border: rgb(156 163 175 / 10%);
   --c-overlay: rgb(220 232 235 / 62%);
   --c-fill-subtle: rgb(92 151 165 / 7%);
   --c-fill-active: rgb(92 151 165 / 12%);

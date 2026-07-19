@@ -46,7 +46,7 @@ watchEffect(() => {
       v-for="(c, i) in parseWord(displayedWord, answer || todayAnswer.word)"
       :key="i"
       :class="[flip ? 'revealed' : '']"
-      class="w-20 h-20 m-1 tile"
+      class="tile"
     >
       <template v-if="animate">
         <CharBlock
@@ -74,14 +74,17 @@ watchEffect(() => {
 
 <style scoped>
 .word-row {
-  --tile-size: 5rem;
+  gap: var(--game-tile-gap);
+  width: var(--game-board-width);
+  margin-block: calc(var(--game-tile-gap) / 2);
 }
 
 .tile {
   user-select: none;
   position: relative;
-  width: var(--tile-size);
-  height: var(--tile-size);
+  width: var(--game-tile-size);
+  height: var(--game-tile-size);
+  flex: none;
 }
 .tile .front,
 .tile .back {
@@ -100,11 +103,5 @@ watchEffect(() => {
 }
 .tile.revealed .back {
   transform: rotateY(0deg);
-}
-
-@media (min-width: 768px) {
-  .word-row {
-    --tile-size: clamp(5rem, 9.375vw, 6rem);
-  }
 }
 </style>
