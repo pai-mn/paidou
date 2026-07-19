@@ -1,6 +1,6 @@
 const DAY_MS = 86_400_000
 const BEIJING_OFFSET_MS = 8 * 60 * 60 * 1000
-const PAIDOU_START_DATE = Date.UTC(2026, 6, 19)
+const PAIDOU_START_DATE = Date.UTC(2026, 6, 18)
 
 export interface BeijingGameDate {
   date: string

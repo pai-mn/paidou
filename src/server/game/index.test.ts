@@ -57,6 +57,6 @@ describe('Beijing game date', () => {
   })
 
   it('numbers the Paidou launch date as day one', () => {
-    expect(getBeijingGameDate(new Date('2026-07-18T16:00:00.000Z'))).toMatchObject({ date: '2026-07-19', day: 1 })
+    expect(getBeijingGameDate(new Date('2026-07-17T16:00:00.000Z'))).toMatchObject({ date: '2026-07-18', day: 1 })
   })
 })
