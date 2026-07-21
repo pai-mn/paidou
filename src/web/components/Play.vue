@@ -102,9 +102,10 @@ watchEffect(() => {
               type="text"
               autocomplete="false"
               :placeholder="t('input-placeholder')"
-              :disabled="isFinished || validation.isPending.value"
+              :readonly="validation.isPending.value"
+              :aria-busy="validation.isPending.value"
               @input="handleInput"
-              @keydown.enter="enter"
+              @keydown.enter.prevent="enter"
               class="bg-transparent guess-input-field p-3 outline-none text-center"
             />
           </div>
