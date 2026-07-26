@@ -15,8 +15,8 @@ describe('game API', () => {
     expect(response.headers.get('Cache-Control')).toBe('no-store')
     expect(payload).toMatchObject({
       data: {
-        day: 2,
-        date: '2026-07-19',
+        day: 3,
+        date: '2026-07-20',
         nextGameAt: '2026-07-19T16:00:00.000Z',
         serverTime: '2026-07-19T08:00:00.000Z',
         answer: {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { getBeijingGameDate } from '#/server/game/date.ts'
-import { getAnswerOfDay } from '#/server/game/index.ts'
+import { getAnswerOfDay, getDailyGame } from '#/server/game/index.ts'
 import { answerCandidates } from '#/server/game/answers.ts'
 import { getHint } from '#/shared/game.ts'
 
@@ -58,5 +58,18 @@ describe('Beijing game date', () => {
 
   it('numbers the Paidou launch date as day one', () => {
     expect(getBeijingGameDate(new Date('2026-07-17T16:00:00.000Z'))).toMatchObject({ date: '2026-07-18', day: 1 })
+  })
+})
+
+describe('production game offset', () => {
+  it('serves the next day while keeping the real server clock and next midnight', () => {
+    const now = new Date('2026-07-19T08:00:00.000Z')
+
+    expect(getDailyGame(now)).toMatchObject({
+      day: 3,
+      date: '2026-07-20',
+      nextGameAt: '2026-07-19T16:00:00.000Z',
+      serverTime: now.toISOString(),
+    })
   })
 })

@@ -6,6 +6,8 @@ import { getHint } from '#/shared/game.ts'
 import type { DailyGame } from '#/shared/api-types.ts'
 
 const SCHEDULE_VERSION = 'paidou-v1'
+const GAME_DAY_OFFSET = 1
+const DAY_MS = 86_400_000
 const cycleCache = new Map<number, [string, string][]>()
 
 function getCycle(cycle: number): [string, string][] {
@@ -38,7 +40,8 @@ export function getAnswerOfDay(day: number) {
 }
 
 export function getDailyGame(now = new Date()): DailyGame {
-  const { date, day, nextGameAt } = getBeijingGameDate(now)
+  const { nextGameAt } = getBeijingGameDate(now)
+  const { date, day } = getBeijingGameDate(new Date(now.getTime() + GAME_DAY_OFFSET * DAY_MS))
   const answer = getAnswerOfDay(day)
 
   return {
